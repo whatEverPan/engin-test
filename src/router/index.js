@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+
+import Result from '../views/test_result.vue'
+import history from '../views/Historical.vue'
+import data from '../views/data.vue'
 import testModel from '../components/testModel'
 Vue.use(VueRouter)
 
@@ -25,9 +29,22 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
+    path:'/result',
+    name:'result',
+    component:Result},
+  {
+    path:'/history',
+    name:'history',
+    component:history},
+    {
+      path:'/data',
+      name:'data',
+      component:data},
+{
     path: '/testModel',
     name: 'testModel',
     component: testModel
+
   }
 ]
 

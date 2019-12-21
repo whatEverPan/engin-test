@@ -264,8 +264,10 @@ export default {
   }
 };
 </script>
+<style >
 
-<style>
+</style>
+<style scoped>
 /* 弹窗样式 */
 .gongYin {
   padding: 0 8px;
