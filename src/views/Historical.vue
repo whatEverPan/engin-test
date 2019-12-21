@@ -1,41 +1,62 @@
 <template>
   <div>
     <div class="btn">
-      <input
-        id="btn1"
-        src="#"
-        type="button"
-        value="切换至图表页"
-      >
+      <router-link to="../result">
+        <a-icon type="left" style="font-size:20px; margin-left:20px;margin-top:15px;"/>
+        <span style="font-size:20px;">返回</span>
+      </router-link>
       <input
         id="btn2"
         src="#"
         type="button"
         value="导出结果列表"
+        style="margin-top:5px;"
       >
-      <router-link to="../history">
-      <input
-        id="btn3"
-        type="button"
-        value="查看历史记录"
-      >
-      </router-link>
     </div>
-    <div>
-      <span>场景：供应链金融（GYLJR）</span>
-      <span>产品：融E贷（GYLJR-RED）</span>
-      <span>模型：助链贷模型（GYLJR-RED-ZLD）</span>
-      <span>模拟运行结束时间：2019-08-08 12:33:14</span>
-    </div>
-    <div class="np">
-      <span>测试对象：</span>
-      <input
-        id="te_ip"
-        type="text"
-      >
+    <div class="header">
+      <span>场景：</span>
+      
+        <a-select
+          defaultValue="场景名称1"
+          style="width: 120px"
+          @change="handleChange"
+        >
+          <a-select-option value="场景名称1">场景名称1</a-select-option>
+          <a-select-option value="场景名称2">场景名称2</a-select-option>
+          <a-select-option value="场景名称3">场景名称3</a-select-option>
+          <a-select-option value="场景名称4">场景名称4</a-select-option>
+        </a-select>
+        
+      <span>产品：</span>
+       <a-select
+          defaultValue="产品名称1"
+          style="width: 120px"
+          @change="handleChange"
+        >
+          <a-select-option value="产品名称1">产品名称1</a-select-option>
+          <a-select-option value="产品名称2">产品名称2</a-select-option>
+          <a-select-option value="产品名称3">产品名称3</a-select-option>
+          <a-select-option value="产品名称4">产品名称4</a-select-option>
+        </a-select>
+      <span>模型：</span>
+       <a-select
+          defaultValue="模型名称1"
+          style="width: 120px"
+          @change="handleChange"
+        >
+          <a-select-option value="模型名称1">模型名称1</a-select-option>
+          <a-select-option value="模型名称2">模型名称2</a-select-option>
+          <a-select-option value="模型名称3">模型名称3</a-select-option>
+          <a-select-option value="模型名称4">模型名称4</a-select-option>
+        </a-select>
+      <span>模拟运行结束时间：</span>
+      <a-date-picker @change="onChange"/>
+      <span>   至  </span>
+      <a-date-picker @change="onChange"/>
       <a-button type="primary">查询</a-button>
     </div>
-<!-- 列表 -->
+    
+    <!-- 列表 -->
     <template>
       <a-table
         :columns="columns"
@@ -72,15 +93,13 @@
               </a-popconfirm>
             </span>
             <span v-else>
-              <a @click="() => edit(record.key)">查看详细报告</a>
-              <router-link to="../data"><a @click="() => edit(record.key)">运行数据</a></router-link>
-              <a @click="() => edit(record.key)">下载报告</a>
+              <router-link to="result"><a @click="() => edit(record.key)">查看结果</a></router-link>
             </span>
           </div>
         </template>
       </a-table>
     </template>
-</div>  
+  </div>
 </template>
 
 <script>
@@ -166,14 +185,14 @@ for (let i = 0; i < 100; i++) {
     name: `${i}`,
     source: '指标导入测试',
     object: `重庆兄弟装饰工程有限公司`,
-    object_code:'91500103622188319J',
-    admittance_result:'通过',
-    score_result:90.54,
-    score_grade:'A',
-    result:'通过',
-    quota:500000.00,
-    interest_rate:5.31,
-    operation:'查看详细报告',
+    object_code: '91500103622188319J',
+    admittance_result: '通过',
+    score_result: 90.54,
+    score_grade: 'A',
+    result: '通过',
+    quota: 500000.00,
+    interest_rate: 5.31,
+    operation: '查看详细报告',
   });
 }
 export default {
@@ -188,6 +207,11 @@ export default {
 </script>
 
 <style scoped>
+.header{
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+}
 .btn {
   width: 100%;
   height: 50px;
