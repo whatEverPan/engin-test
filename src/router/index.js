@@ -10,6 +10,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+
+    path:'/case',
+    name:'/case',
+    component:()=>import('../components/testCase')
+  },{
+
     path: '/',
     name: 'home',
     component: Home
