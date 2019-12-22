@@ -9,7 +9,7 @@
     <div class="content">
       <!-- 前三个按钮 -->
       <div class="content_one">
-        <a-button class="biaozhun" type="primary" @click="showModal">
+        <a-button type="primary" @click="showModal">
           <a-icon type="folder" />标准测试值导入
         </a-button>
         <!-- 第一个对话框 -->
@@ -20,6 +20,7 @@
           okText="计算"
           cancelText="取消"
           width="35%"
+          style="max-width:480px;max-height:302px;min-width:480px"
         >
           <div style="height:180px;">
             <a-button type="primary" style="top:58px;right:10px;position:absolute">EXCEL模板下载</a-button>
@@ -39,12 +40,22 @@
           </div>
         </a-modal>
         <!-- 第二个按钮 -->
-        <a-button class="zhibiao" type="primary" @click="showTwo">
-          <a-icon type="dashboard" />指标运算值测算
-        </a-button>
+        <span class="zhibiao">
+          <a-button type="primary" @click="showTwo">
+            <a-icon type="dashboard" />指标运算值测算
+          </a-button>
+        </span>
+
         <!-- 第二个对话框 -->
-        <a-modal v-model="vivw" @ok="hideTwo" okText="计算" cancelText="取消" width="800px">
-          <div style="height:380px;">
+        <a-modal
+          v-model="vivw"
+          @ok="hideTwo"
+          okText="计算"
+          cancelText="取消"
+          width="800px"
+          style="max-width:800px;min-width:800px;overflow: hidden;"
+        >
+          <div style="height:680px;max-width:800px;min-width:800px;overflow: hidden;">
             <!-- 第一行 -->
             <div>
               <span>场景：</span>
@@ -52,7 +63,7 @@
               <span style="margin-left:20px;">产品：</span>
               <span class="gongYin">税链贷</span>
               <span style="margin-left:60px;">模型：</span>
-              <select style="width:176px;height:30px;border-radius: 5px;">
+              <select style="width:185px;height:30px;border-radius: 5px;">
                 <option value="volvo">请选择：</option>
                 <option value="saab">Saab</option>
                 <option value="opel">Opel</option>
@@ -76,20 +87,52 @@
             <!-- 第三行 -->
             <div style="margin-top:20px;">
               <span>模型数据流水日期：</span>
-              <a-date-picker /> —
+              <a-date-picker />—
               <a-date-picker />
             </div>
             <!-- 表格部分 -->
-            <div style="margin-top:10px;">
-              <a-table :columns="Tow" :dataSource="dataTow" :pagination="false" size="small" bordered>
+            <div style="margin-top:10px;max-width:800px;min-width:800px;">
+              <a-table
+                :columns="Tow"
+                :dataSource="dataTow"
+                bordered
+                :pagination="page"
+                style="padding-right:40px;width:100%"
+                size="small"
+              >
+                <template slot="operation">
+                  <div class="editable-row-operations">
+                    <!-- @click="edit()" -->
+                    <a>添加</a>
+                  </div>
+                </template>
+
                 <template slot="title">模型数据流水号</template>
               </a-table>
-              <!-- <a-table :columns="Tow" :dataSource="dataTow" :pagination="false" size="small" /> -->
             </div>
+            <!-- 添加的表 -->
+            <a-table
+              :columns="edit"
+              :dataSource="dataOne"
+              :pagination="false"
+              :scroll="{ y: 240 }"
+              bordered
+              style="padding-right:40px;width:100%"
+              size="small"
+            >
+            <template slot="operation">
+                  <div class="editable-row-operations">
+                    <!-- @click="delet()" -->
+                    <a @click="delet">删除</a>
+                  </div>
+                </template>
+            <template slot="title">已添加的模型数据表</template>
+            </a-table>
           </div>
         </a-modal>
-
-        <a-button type="danger" style="float:right;margin-top:10px;margin-right:30px;">清除数据</a-button>
+        <span style="float:right">
+          <a-button type="danger" @click="clear">清除数据</a-button>
+        </span>
       </div>
       <!-- 切换 -->
       <div class="switch">
@@ -98,15 +141,12 @@
             <!-- 第一表格 -->
             <a-table
               :columns="columns"
-              :dataSource="data"
+              :dataSource="data2"
               bordered
               :pagination="page"
               style="padding:10px"
               size="small"
             >
-              <template slot="name" slot-scope="text">
-                <a href="javascript:;">{{text}}</a>
-              </template>
             </a-table>
           </a-tab-pane>
 
@@ -121,43 +161,82 @@
 </template>
 
 <script>
+const edit = [
+  {
+    title: "姓名",
+    dataIndex: "name",
+    width: 150
+  },
+  {
+    title: "时间",
+    dataIndex: "timeOne",
+    width: 200
+  },
+  {
+    title: "流水号",
+    dataIndex: "address",
+    width:250
+  },
+  {
+    title: "编辑",
+    dataIndex: "operation",
+    scopedSlots: { customRender: "operation" }
+  }
+];
+const dataOne = [];
+for (let i = 0; i < 20; i++) {
+  dataOne.push({
+    key: i,
+    name: `张三`,
+    timeOne: `2019-12-2`,
+    address: `9856971562368. ${i}`
+
+  });
+}
+
 const Tow = [
   {
-    title: "Name",
+    title: "姓名",
     dataIndex: "name"
   },
   {
-    title: "Age",
-    dataIndex: "age"
+    title: "时间",
+    dataIndex: "time"
   },
   {
-    title: "Address",
+    title: "流水号",
     dataIndex: "address"
   },
   {
-    use:"操作",
-    user:"biaoji"
+    title: "编辑",
+    dataIndex: "operation",
+    scopedSlots: { customRender: "operation" }
   }
 ];
 const dataTow = [
   {
     key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    biaoji:"删除"
+    name: "张三",
+    time: "2019-12-21",
+    address: "9856971562368"
   },
   {
     key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park"
+    name: "李四",
+    time: "2019-12-21",
+    address: "9856971562368"
   },
   {
     key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park"
+    name: "王五",
+    time: "2019-12-21",
+    address: "9856971562368"
+  },
+  {
+    key: "4",
+    name: "王五",
+    time: "2019-12-21",
+    address: "9856971562368"
   }
 ];
 
@@ -218,12 +297,14 @@ const data = [
     name: "重庆金字塔装饰有限公司",
     money: "91500106203083432X",
     address: "张海文"
-  },
+  }
 ];
 
 export default {
   data() {
     return {
+      edit,
+      dataOne,
       data,
       columns,
       dataTow,
@@ -239,6 +320,10 @@ export default {
     };
   },
   methods: {
+    clear(){
+      var switch1=document.getElementsByClassName("switch");
+    },
+    delet(){},
     showModal() {
       this.visible = true;
     },
@@ -264,9 +349,7 @@ export default {
   }
 };
 </script>
-<style >
 
-</style>
 <style scoped>
 /* 弹窗样式 */
 .gongYin {
@@ -279,22 +362,18 @@ export default {
   border-radius: 10px;
 }
 /* 内容样式 */
-.biaozhun {
-  margin-top: 10px;
-}
 .zhibiao {
   margin-top: 10px;
   margin-left: 50px;
 }
 .content_one {
-  text-align: center;
-  margin-top: 8px;
-  width: 923px;
+  text-align: left;
   height: 55px;
+  padding: 10px;
   background-color: rgba(242, 242, 242, 1);
 }
 .content {
-  width: 925px;
+  width: 100%;
   height: 490px;
   background-color: rgba(255, 255, 255, 1);
   border: 1px solid rgba(204, 204, 204, 1);
@@ -312,7 +391,7 @@ export default {
   background-color: rgba(215, 215, 215, 1);
 }
 .header {
-  width: 925px;
+  width: 100%;
   height: 53px;
   border-top: 1px solid rgba(204, 204, 204, 1);
   border-right: 1px solid rgba(204, 204, 204, 1);
@@ -321,12 +400,12 @@ export default {
 }
 /* 外面盒子样式 */
 .box {
-  width: 926px;
-  height: 546px;
+  overflow: hidden;
+  max-width: 926px;
+  min-width: 926px;
+  width: 100%;
+  max-height: 600px;
+  height: 550px;
   margin: 20px auto;
-}
-* {
-  margin: 0;
-  padding: 0;
 }
 </style>
