@@ -21,13 +21,13 @@
       >
       </router-link>
     </div>
-    <div>
+    <div style="width:100%;white-space:nowrap;height:40px;margin-top:5px;">
       <span>场景：供应链金融（GYLJR）</span>
       <span>产品：融E贷（GYLJR-RED）</span>
       <span>模型：助链贷模型（GYLJR-RED-ZLD）</span>
       <span>模拟运行结束时间：2019-08-08 12:33:14</span>
     </div>
-    <div class="np">
+    <div class="np" style="height:40px;">
       <span>测试对象：</span>
       <input
         id="te_ip"
