@@ -1,15 +1,13 @@
 <template>
-  <div>
+  <div class="all">
     <div class="btn">
       <input
         id="btn1"
-        src="#"
         type="button"
         value="切换至图表页"
       >
       <input
         id="btn2"
-        src="#"
         type="button"
         value="导出结果列表"
       >
@@ -27,13 +25,13 @@
       <span>模型：助链贷模型（GYLJR-RED-ZLD）</span>
       <span>模拟运行结束时间：2019-08-08 12:33:14</span>
     </div>
-    <div class="np" style="height:40px;">
+    <div class="np" style="height:50px;">
       <span>测试对象：</span>
       <input
         id="te_ip"
         type="text"
       >
-      <a-button type="primary">查询</a-button>
+      <a-button type="primary" style="margin-left:10px">查询</a-button>
     </div>
 <!-- 列表 -->
     <template>
@@ -188,6 +186,9 @@ export default {
 </script>
 
 <style scoped>
+.all{
+  padding: 16px;
+}
 .btn {
   width: 100%;
   height: 50px;
@@ -195,8 +196,8 @@ export default {
 }
 #btn1 {
   position: absolute;
-  left: 0px;
-  top: 0px;
+  /* left: 0px;
+  top: 0px; */
   width: 124px;
   height: 42px;
   background: url(../image/u5989.png) no-repeat 5%;
@@ -213,7 +214,7 @@ export default {
 #btn2 {
   position: absolute;
   left: 150px;
-  top: 0px;
+  /* top: 0px; */
   width: 124px;
   height: 42px;
   background: url(../image/u6022.png) no-repeat 5%;
@@ -230,7 +231,7 @@ export default {
 #btn3 {
   position: absolute;
   left: 300px;
-  top: 0px;
+  /* top: 0px; */
   width: 124px;
   height: 42px;
   background: url(../image/u5948.png) no-repeat 5%;
@@ -248,6 +249,7 @@ export default {
   border-style: solid;
   border-color: rgba(174, 174, 174, 1);
   border-radius: 3px;
+  height: 30px;
 }
 .editable-row-operations a {
   margin-right: 8px;

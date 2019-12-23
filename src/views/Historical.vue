@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="hist_all">
     <div class="btn">
       <router-link to="../result">
         <a-icon type="left" style="font-size:20px; margin-left:20px;margin-top:15px;"/>
         <span style="font-size:20px;">返回</span>
       </router-link>
       <input
-        id="btn2"
+        id="btn_2"
         src="#"
         type="button"
         value="导出结果列表"
@@ -207,6 +207,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.hist_all{
+  padding:16px;
+}
 .header{
     width: 100%;
     height: 50px;
@@ -217,27 +220,11 @@ export default {
   height: 50px;
   background-color: #f2f2f2;
 }
-#btn1 {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 124px;
-  height: 42px;
-  background: url(../image/u5989.png) no-repeat 5%;
-  background-color: rgba(255, 255, 255, 1);
-  box-sizing: border-box;
-  border-width: 1px;
-  border-style: solid;
-  border-color: rgba(174, 174, 174, 1);
-  border-radius: 3px;
-  box-shadow: none;
-  text-align: right;
-}
 
-#btn2 {
+#btn_2 {
   position: absolute;
   left: 150px;
-  top: 0px;
+  // top: 0px;
   width: 124px;
   height: 42px;
   background: url(../image/u6022.png) no-repeat 5%;
@@ -251,22 +238,7 @@ export default {
   text-align: right;
 }
 
-#btn3 {
-  position: absolute;
-  left: 300px;
-  top: 0px;
-  width: 124px;
-  height: 42px;
-  background: url(../image/u5948.png) no-repeat 5%;
-  background-color: rgba(255, 255, 255, 1);
-  box-sizing: border-box;
-  border-width: 1px;
-  border-style: solid;
-  border-color: rgba(174, 174, 174, 1);
-  border-radius: 3px;
-  box-shadow: none;
-  text-align: right;
-}
+
 #te_ip {
   border-width: 1px;
   border-style: solid;
