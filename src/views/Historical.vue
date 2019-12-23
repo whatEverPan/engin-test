@@ -206,7 +206,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .header{
     width: 100%;
     height: 50px;
