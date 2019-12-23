@@ -92,6 +92,7 @@ export default {
     onclick() {
       let vm = this;
       if (vm.mark) {
+        
       } else if (vm.isEditting) {
         vm.isEditting = !vm.isEditting;
       } else {
@@ -121,10 +122,11 @@ export default {
 };
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
 /* 全局 */
 .testModel {
-  width: 960px;
+  max-width: 960px;
+  min-width: 960px;
   height: 536px;
   margin: 50px auto;
   border: 2px solid #ccc;
