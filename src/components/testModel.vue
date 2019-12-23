@@ -125,11 +125,9 @@ export default {
 <style lang='less' scoped>
 /* 全局 */
 .testModel {
-  max-width: 960px;
-  min-width: 960px;
-  height: 536px;
-  margin: 50px auto;
-  border: 2px solid #ccc;
+  width: 100%;
+  height: 530px;
+  border: 1px solid #ccc;
   .p {
     display: inline-block;
     line-height: 55px;
@@ -143,7 +141,7 @@ export default {
     background-color: #f2f2f2;
   }
   .content {
-    width: 956px;
+    width: 100%;
     height: calc(100% - 54px);
     .menu {
       width: 100%;

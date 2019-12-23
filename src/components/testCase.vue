@@ -2,7 +2,7 @@
   <div class="box">
     <div class="header">
       <div class="ziti">
-        <p>测试用例准备</p>
+        <span>测试用例准备</span>
       </div>
     </div>
     <!-- 内容 -->
@@ -10,7 +10,7 @@
       <!-- 前三个按钮 -->
       <div class="content_one">
         <a-button type="primary" @click="showModal">
-          <a-icon type="folder" />标准测试值导入
+          <a-icon type="folder"/>标准测试值导入
         </a-button>
         <!-- 第一个对话框 -->
         <a-modal
@@ -20,11 +20,10 @@
           okText="计算"
           cancelText="取消"
           width="35%"
-          style="max-width:480px;max-height:302px;min-width:480px"
         >
           <div style="height:180px;">
             <a-button type="primary" style="top:58px;right:10px;position:absolute">EXCEL模板下载</a-button>
-            <br />
+            <br>
             <span>EXCEL上传：</span>
             <a-upload
               name="file"
@@ -34,7 +33,7 @@
               @change="handleChange"
             >
               <a-button>
-                <a-icon type="upload" />选择文件
+                <a-icon type="upload"/>选择文件
               </a-button>
             </a-upload>
           </div>
@@ -42,7 +41,7 @@
         <!-- 第二个按钮 -->
         <span class="zhibiao">
           <a-button type="primary" @click="showTwo">
-            <a-icon type="dashboard" />指标运算值测算
+            <a-icon type="dashboard"/>指标运算值测算
           </a-button>
         </span>
 
@@ -73,7 +72,7 @@
             <!-- 第二行 -->
             <div style="margin-top:20px;">
               <span>客户名称：</span>
-              <a-input style="width:180px;" />
+              <a-input style="width:180px;"/>
               <span style="margin-left:55px;">执行状态：</span>
               <select style="width:20%;height:30px;border-radius: 5px;">
                 <option value="volvo">请选择：</option>
@@ -87,8 +86,8 @@
             <!-- 第三行 -->
             <div style="margin-top:20px;">
               <span>模型数据流水日期：</span>
-              <a-date-picker />—
-              <a-date-picker />
+              <a-date-picker/>—
+              <a-date-picker/>
             </div>
             <!-- 表格部分 -->
             <div style="margin-top:10px;max-width:800px;min-width:800px;">
@@ -120,13 +119,13 @@
               style="padding-right:40px;width:100%"
               size="small"
             >
-            <template slot="operation">
-                  <div class="editable-row-operations">
-                    <!-- @click="delet()" -->
-                    <a @click="delet">删除</a>
-                  </div>
-                </template>
-            <template slot="title">已添加的模型数据表</template>
+              <template slot="operation">
+                <div class="editable-row-operations">
+                  <!-- @click="delet()" -->
+                  <a @click="delet">删除</a>
+                </div>
+              </template>
+              <template slot="title">已添加的模型数据表</template>
             </a-table>
           </div>
         </a-modal>
@@ -141,18 +140,16 @@
             <!-- 第一表格 -->
             <a-table
               :columns="columns"
-              :dataSource="data2"
+              :dataSource="data"
               bordered
               :pagination="page"
-              style="padding:10px"
               size="small"
-            >
-            </a-table>
+            ></a-table>
           </a-tab-pane>
 
           <a-tab-pane tab="指标运算值测算" key="2" forceRender>
             <!-- 第二表格 -->
-            <a-empty />
+            <a-empty/>
           </a-tab-pane>
         </a-tabs>
       </div>
@@ -175,7 +172,7 @@ const edit = [
   {
     title: "流水号",
     dataIndex: "address",
-    width:250
+    width: 250
   },
   {
     title: "编辑",
@@ -190,7 +187,6 @@ for (let i = 0; i < 20; i++) {
     name: `张三`,
     timeOne: `2019-12-2`,
     address: `9856971562368. ${i}`
-
   });
 }
 
@@ -320,10 +316,10 @@ export default {
     };
   },
   methods: {
-    clear(){
-      var switch1=document.getElementsByClassName("switch");
+    clear() {
+      var switch1 = document.getElementsByClassName("switch");
     },
-    delet(){},
+    delet() {},
     showModal() {
       this.visible = true;
     },
@@ -350,62 +346,57 @@ export default {
 };
 </script>
 
-<style scoped>
-/* 弹窗样式 */
-.gongYin {
-  padding: 0 8px;
-  height: 25px;
-  background: gray;
-  display: inline-block;
-  text-align: center;
-  color: white;
-  border-radius: 10px;
-}
-/* 内容样式 */
-.zhibiao {
-  margin-top: 10px;
-  margin-left: 50px;
-}
-.content_one {
-  text-align: left;
-  height: 55px;
-  padding: 10px;
-  background-color: rgba(242, 242, 242, 1);
-}
-.content {
-  width: 100%;
-  height: 490px;
-  background-color: rgba(255, 255, 255, 1);
-  border: 1px solid rgba(204, 204, 204, 1);
-}
-/* 测试用例准备样式 */
-.ziti p {
-  color: #333333;
-  padding: 10px;
-}
-.ziti {
-  border-radius: 6px;
-  text-align: center;
-  width: 180px;
-  height: 54px;
-  background-color: rgba(215, 215, 215, 1);
-}
-.header {
-  width: 100%;
-  height: 53px;
-  border-top: 1px solid rgba(204, 204, 204, 1);
-  border-right: 1px solid rgba(204, 204, 204, 1);
-  border-left: 1px solid rgba(204, 204, 204, 1);
-  background-color: rgba(242, 242, 242, 1);
-}
+<style lang="less" scoped>
 /* 外面盒子样式 */
 .box {
   overflow: hidden;
-  max-width: 926px;
-  min-width: 926px;
   width: 100%;
-  max-height: 600px;
-  height: 550px;
-  margin: 20px auto;
+  height: 530px;
+  .header {
+    width: 100%;
+    height: 54px;
+    border-top: 1px solid rgba(204, 204, 204, 1);
+    border-right: 1px solid rgba(204, 204, 204, 1);
+    border-left: 1px solid rgba(204, 204, 204, 1);
+    background-color: rgba(242, 242, 242, 1);
+    .ziti {
+      text-align: center;
+      line-height: 54px;
+      width: 180px;
+      height: 54px;
+      background-color: rgba(215, 215, 215, 1);
+      /* 测试用例准备样式 */
+      span {
+        color: #333333;
+      }
+    }
+  }
+  .content {
+    width: 100%;
+    height: calc(100% - 54px);
+    background-color: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(204, 204, 204, 1);
+    .content_one {
+      text-align: left;
+      height: 55px;
+      padding: 10px;
+      background-color: rgba(242, 242, 242, 1);
+    }
+  }
+  /* 弹窗样式 */
+  .gongYin {
+    padding: 0 8px;
+    height: 25px;
+    background: gray;
+    display: inline-block;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+  }
+  /* 内容样式 */
+  .zhibiao {
+    margin-top: 10px;
+    margin-left: 50px;
+  }
 }
 </style>
