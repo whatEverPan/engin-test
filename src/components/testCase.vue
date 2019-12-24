@@ -133,6 +133,7 @@
           <a-button type="danger" @click="clear">清除数据</a-button>
         </span>
       </div>
+
       <!-- 切换 -->
       <div class="switch">
         <a-tabs defaultActiveKey="1">
@@ -144,6 +145,7 @@
               bordered
               :pagination="page"
               size="small"
+              style="margin:2px"
             ></a-table>
           </a-tab-pane>
 
@@ -287,12 +289,6 @@ const data = [
     name: "重庆金字塔装饰有限公司",
     money: "91500106203083432X",
     address: "张海文"
-  },
-  {
-    key: "7",
-    name: "重庆金字塔装饰有限公司",
-    money: "91500106203083432X",
-    address: "张海文"
   }
 ];
 
@@ -349,21 +345,23 @@ export default {
 <style lang="less" scoped>
 /* 外面盒子样式 */
 .box {
+  padding: 16px 16px 16px 8px;
   overflow: hidden;
   width: 100%;
-  height: 530px;
+  height: 528px;
   .header {
     width: 100%;
     height: 54px;
-    border-top: 1px solid rgba(204, 204, 204, 1);
-    border-right: 1px solid rgba(204, 204, 204, 1);
-    border-left: 1px solid rgba(204, 204, 204, 1);
+    border: 1px solid #ccc;
+    // border-top: 1px solid rgba(204, 204, 204, 1);
+    // border-right: 1px solid rgba(204, 204, 204, 1);
+    // border-left: 1px solid rgba(204, 204, 204, 1);
     background-color: rgba(242, 242, 242, 1);
     .ziti {
       text-align: center;
       line-height: 54px;
       width: 180px;
-      height: 54px;
+      height: 52px;
       background-color: rgba(215, 215, 215, 1);
       /* 测试用例准备样式 */
       span {
@@ -375,12 +373,20 @@ export default {
     width: 100%;
     height: calc(100% - 54px);
     background-color: rgba(255, 255, 255, 1);
-    border: 1px solid rgba(204, 204, 204, 1);
+    // border: 1px solid rgba(204, 204, 204, 1);
+    // border-top: 1px solid rgba(204, 204, 204, 1);
+    border-right: 1px solid rgba(204, 204, 204, 1);
+    border-left: 1px solid rgba(204, 204, 204, 1);
+    border-bottom: 1px solid #ccc;
     .content_one {
       text-align: left;
-      height: 55px;
+      height: 54px;
       padding: 10px;
       background-color: rgba(242, 242, 242, 1);
+    }
+    .switch {
+      width: 100%;
+      // height: 100%;
     }
   }
   /* 弹窗样式 */

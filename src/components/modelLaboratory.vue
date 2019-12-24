@@ -1,16 +1,20 @@
 <template>
   <div class="threeInone">
-    <a-row class="inNav">
+    <a-row class="inNav" type="flex" justify="center">
       <a-col :span="24">
-          <a-icon type="up-circle" />
-          <a-icon type="down-circle" /> 
-          <a-icon type="pause-circle" />
-          <a-icon type="stop" />
+        <a-icon type="up-circle" spin style="fontSize:25px"/>
+        <span>上一步</span>
+        <a-icon type="down-circle" spin style="fontSize:25px"/>
+        <span>下一步</span>
+        <a-icon type="pause-circle" spin style="fontSize:25px"/>
+        <span>模型测试运行</span>
+        <a-icon type="stop" spin style="fontSize:25px"/>
+        <span>模型测试停止</span>
       </a-col>
     </a-row>
 
     <a-row>
-      <a-col :span="12" >
+      <a-col :span="12">
         <testModel/>
       </a-col>
       <a-col :span="12">
@@ -40,15 +44,24 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.threeInone{
-    width: 100%;
-    height: 100%;
-    .inNav{
-        height: 54px;
-        width: 100%;
-        background-color: #f2f2f2;
-        border: 1px solid #ccc;
+.threeInone {
+  width: 1902px;
+  height: 1170px;
+  .inNav {
+    margin: 16px 16px 0;
+    // margin: 16px 16px;
+    height: 54px;
+    line-height: 54px;
+    width: cale(100%-32px);
+    background-color: #f2f2f2;
+    // border: 1px solid #ccc;
+    padding: 0 20px;
+    span{
+      margin:0 20px; 
+      font-size: 20px;
+      font-weight: 600;
     }
+  }
 }
 </style>
 
