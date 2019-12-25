@@ -9,9 +9,16 @@ import data from '../views/data.vue'
 
 import testModel from '../components/testModel'
 import testCase from '../components/testCase'
+
+import signIn from '../components/signIn'
 Vue.use(VueRouter)
 
 const routes = [{
+    path: '/signIn',
+    name: 'signIn',
+    component: signIn
+  },
+  {
     path: '/modelLaboratory',
     name: 'modelLaboratory',
     component: modelLaboratory

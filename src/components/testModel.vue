@@ -4,9 +4,7 @@
     <div class="header">
       <a-row type="flex" justify="start">
         <a-col :span="24">
-          <div class="p">
-            <span>测试模型</span>
-          </div>
+          <span>测试模型</span>
         </a-col>
       </a-row>
     </div>
@@ -92,7 +90,6 @@ export default {
     onclick() {
       let vm = this;
       if (vm.mark) {
-        
       } else if (vm.isEditting) {
         vm.isEditting = !vm.isEditting;
       } else {
@@ -125,22 +122,36 @@ export default {
 <style lang='less' scoped>
 /* 全局 */
 .testModel {
+  padding: 16px 8px 16px 16px;
   width: 100%;
-  height: 530px;
-  border: 1px solid #ccc;
+  height: 528px;
+  // border: 1px solid #ccc;
   .p {
     display: inline-block;
-    line-height: 55px;
+    line-height: 54px;
     margin: 0 16px;
   }
   /* 表头 */
   .header {
     width: 100%;
     height: 54px;
-    border-bottom: 1px solid #ccc;
+    border: 1px solid #ccc;
+    // border-bottom: 1px solid #ccc;
     background-color: #f2f2f2;
+    // border-top: 1px solid #ccc;
+    span {
+      background-color: rgba(215, 215, 215, 1);
+      line-height: 52px;
+      text-align: center;
+      display: inline-block;
+      width: 180px;
+      color: black;
+    }
   }
   .content {
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
     width: 100%;
     height: calc(100% - 54px);
     .menu {

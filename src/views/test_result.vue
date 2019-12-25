@@ -1,95 +1,68 @@
 <template>
-  <div class="all">
-    <div class="btn">
-      <input
-        id="btn1"
-        type="button"
-        value="切换至图表页"
-      >
-      <input
-        id="btn2"
-        type="button"
-        value="导出结果列表"
-      >
-      <router-link to="../history">
-        <input
-          id="btn3"
-          type="button"
-          value="查看历史记录"
-        >
-      </router-link>
+  <div class="simulationResults">
+    <div class="title">
+      <span>测试结果</span>
     </div>
-    <div style="width:100%;white-space:nowrap;height:40px;margin-top:5px;">
-      <span>场景：供应链金融（GYLJR）</span>
-      <span>产品：融E贷（GYLJR-RED）</span>
-      <span>模型：助链贷模型（GYLJR-RED-ZLD）</span>
-      <span>模拟运行结束时间：2019-08-08 12:33:14</span>
-    </div>
-    <div
-      class="np"
-      style="height:50px;"
-    >
-      <span>测试对象：</span>
+    <div class="content">
+      <div class="btn">
+        <input id="btn1" src="#" type="button" value="切换至图表页">
+        <input id="btn2" src="#" type="button" value="导出结果列表">
+        <router-link to="../history">
+          <input id="btn3" type="button" value="查看历史记录">
+        </router-link>
+      </div>
 
-      <input
-        id="te_ip"
-        type="text"
-      >
-      <a-button
-        type="primary"
-        style="margin-left:10px"
-      >查询</a-button>
-      
-      
-
+      <div class="textBox">
+        <div class="span">
+          <span>场景：供应链金融（GYLJR）</span>
+          <span>产品：融E贷（GYLJR-RED）</span>
+          <span>模型：助链贷模型（GYLJR-RED-ZLD）</span>
+          <span>模拟运行结束时间：2019-08-08 12:33:14</span>
+        </div>
+        <div class="np">
+          <span>测试对象：</span>
+          <input id="te_ip" type="text">
+          <a-button type="primary">查询</a-button>
+        </div>
+        <!-- 列表 -->
+        <div class="list">
+          <a-table :columns="columns" :dataSource="data" bordered>
+            <template
+              v-for="col in ['name', 'age', 'address']"
+              :slot="col"
+              slot-scope="text, record, index"
+            >
+              <div :key="col">
+                <a-input
+                  v-if="record.editable"
+                  style="margin: -5px 0"
+                  :value="text"
+                  @change="e => handleChange(e.target.value, record.key, col)"
+                />
+                <template v-else>{{text}}</template>
+              </div>
+            </template>
+            <template slot="operation" slot-scope="text, record, index">
+              <div class="editable-row-operations">
+                <span v-if="record.editable">
+                  <a @click="() => save(record.key)">Save</a>
+                  <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.key)">
+                    <a>Cancel</a>
+                  </a-popconfirm>
+                </span>
+                <span v-else>
+                  <a @click="() => edit(record.key)">查看详细报告</a>
+                  <router-link to="../data">
+                    <a @click="() => edit(record.key)">运行数据</a>
+                  </router-link>
+                  <a @click="() => edit(record.key)">下载报告</a>
+                </span>
+              </div>
+            </template>
+          </a-table>
+        </div>
+      </div>
     </div>
-    <!-- 列表 -->
-    <template>
-      <a-table
-        :columns="columns"
-        :dataSource="data"
-        bordered
-      >
-        <template
-          v-for="col in ['name', 'age', 'address']"
-          :slot="col"
-          slot-scope="text, record, index"
-        >
-          <div :key="col">
-            <a-input
-              v-if="record.editable"
-              style="margin: -5px 0"
-              :value="text"
-              @change="e => handleChange(e.target.value, record.key, col)"
-            />
-            <template v-else>{{text}}</template>
-          </div>
-        </template>
-        <template
-          slot="operation"
-          slot-scope="text, record, index"
-        >
-          <div class="editable-row-operations">
-            <span v-if="record.editable">
-              <a @click="() => save(record.key)">Save</a>
-              <a-popconfirm
-                title="Sure to cancel?"
-                @confirm="() => cancel(record.key)"
-              >
-                <a>Cancel</a>
-              </a-popconfirm>
-            </span>
-            <span v-else>
-              <a @click="() => edit(record.key)">查看详细报告</a>
-              <router-link to="../data">
-                <a @click="() => edit(record.key)">运行数据</a>
-              </router-link>
-              <a @click="() => edit(record.key)">下载报告</a>
-            </span>
-          </div>
-        </template>
-      </a-table>
-    </template>
   </div>
 </template>
 
@@ -193,70 +166,144 @@ export default {
       data,
       columns
     };
+  },
+  methods: {
+    handleChange(value, key, column) {
+      const newData = [...this.data];
+      const target = newData.filter(item => key === item.key)[0];
+      if (target) {
+        target[column] = value;
+        this.data = newData;
+      }
+    },
+    edit(key) {
+      const newData = [...this.data];
+      const target = newData.filter(item => key === item.key)[0];
+      if (target) {
+        target.editable = true;
+        this.data = newData;
+      }
+    },
+    save(key) {
+      const newData = [...this.data];
+      const target = newData.filter(item => key === item.key)[0];
+      if (target) {
+        delete target.editable;
+        this.data = newData;
+        this.cacheData = newData.map(item => ({ ...item }));
+      }
+    },
+    cancel(key) {
+      const newData = [...this.data];
+      const target = newData.filter(item => key === item.key)[0];
+      if (target) {
+        Object.assign(
+          target,
+          this.cacheData.filter(item => key === item.key)[0]
+        );
+        delete target.editable;
+        this.data = newData;
+      }
+    }
   }
 };
 </script>
-
-
-<style scoped>
-.all {
-  padding: 16px;
-}
-
-<style lang="less" scoped> 
-  .btn {
+<style lang='less' scoped>
+.simulationResults {
+  width: 100%;
+  height: 100%;
+  padding: 0 16px 16px;
+  .title {
     width: 100%;
-    height: 50px;
+    height: 54px;
+    border: 1px solid #ccc;
     background-color: #f2f2f2;
-    #btn1 {
-      width: 124px;
-      height: 42px;
-      background: url(../image/u5989.png) no-repeat 5%;
-      background-color: rgba(255, 255, 255, 1);
-      box-sizing: border-box;
-      border-width: 1px;
-      border-style: solid;
-      border-color: rgba(174, 174, 174, 1);
-      border-radius: 3px;
-      box-shadow: none;
-      text-align: right;
-    }
-    #btn2 {
-      width: 124px;
-      height: 42px;
-      background: url(../image/u6022.png) no-repeat 5%;
-      background-color: rgba(255, 255, 255, 1);
-      box-sizing: border-box;
-      border-width: 1px;
-      border-style: solid;
-      border-color: rgba(174, 174, 174, 1);
-      border-radius: 3px;
-      box-shadow: none;
-      text-align: right;
-    }
-    #btn3 {
-      width: 124px;
-      height: 42px;
-      background: url(../image/u5948.png) no-repeat 5%;
-      background-color: rgba(255, 255, 255, 1);
-      box-sizing: border-box;
-      border-width: 1px;
-      border-style: solid;
-      border-color: rgba(174, 174, 174, 1);
-      border-radius: 3px;
-      box-shadow: none;
-      text-align: right;
+    span {
+      background-color: rgba(215, 215, 215, 1);
+      line-height: 52px;
+      text-align: center;
+      display: inline-block;
+      width: 180px;
+      color: black;
     }
   }
-
-#te_ip {
-  border-width: 1px;
-  border-style: solid;
-  border-color: rgba(174, 174, 174, 1);
-  border-radius: 3px;
-  height: 30px;
-}
-.editable-row-operations a {
-  margin-right: 8px;
+  .content {
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    .btn {
+      // padding: ;
+      width: 100%;
+      height: 54px;
+      // line-height: 54px;
+      background-color: #f2f2f2;
+      padding: 6px 10px;
+      #btn1 {
+        width: 124px;
+        height: 42px;
+        background: url(../image/u5989.png) no-repeat 5%;
+        background-color: rgba(255, 255, 255, 1);
+        box-sizing: border-box;
+        border: 1px solid rgba(174, 174, 174, 1);
+        border-radius: 3px;
+        box-shadow: none;
+        text-align: right;
+        margin-right: 10px;
+      }
+      #btn2 {
+        margin-right: 10px;
+        width: 124px;
+        height: 42px;
+        background: url(../image/u6022.png) no-repeat 5%;
+        background-color: rgba(255, 255, 255, 1);
+        box-sizing: border-box;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(174, 174, 174, 1);
+        border-radius: 3px;
+        box-shadow: none;
+        text-align: right;
+      }
+      #btn3 {
+        width: 124px;
+        height: 42px;
+        background: url(../image/u5948.png) no-repeat 5%;
+        background-color: rgba(255, 255, 255, 1);
+        box-sizing: border-box;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(174, 174, 174, 1);
+        border-radius: 3px;
+        box-shadow: none;
+        text-align: right;
+      }
+    }
+    .textBox {
+      width: 100%;
+      height: cale(100%-110px);
+      padding: 5px;
+      .span span {
+        margin-right: 20px;
+        text-align: left;
+      }
+      .np {
+        width: 100%;
+        height: 54px;
+        line-height: 54px;
+      }
+      #te_ip {
+        border: 1px solid rgba(174, 174, 174, 1);
+        border-radius: 3px;
+        width: 195px;
+        height: 32px;
+        margin-left: 10px;
+        margin-right: 20px;
+      }
+      //表格自带样式
+      .editable-row-operations a {
+        margin-right: 8px;
+      }
+    }
+  }
 }
 </style>
