@@ -7,9 +7,9 @@
       <div class="btn">
         <input id="btn1" src="#" type="button" value="切换至图表页">
         <input id="btn2" src="#" type="button" value="导出结果列表">
-        <router-link to="../history">
+        <!-- <router-link to="../history">
           <input id="btn3" type="button" value="查看历史记录">
-        </router-link>
+        </router-link> -->
       </div>
 
       <div class="textBox">
@@ -50,13 +50,13 @@
                     <a>Cancel</a>
                   </a-popconfirm>
                 </span>
-                <span v-else>
+                <!-- <span v-else>
                   <a @click="() => edit(record.key)">查看详细报告</a>
                   <router-link to="../data">
                     <a @click="() => edit(record.key)">运行数据</a>
                   </router-link>
                   <a @click="() => edit(record.key)">下载报告</a>
-                </span>
+                </span> -->
               </div>
             </template>
           </a-table>
@@ -242,7 +242,7 @@ export default {
       #btn1 {
         width: 124px;
         height: 42px;
-        background: url(../image/u5989.png) no-repeat 5%;
+        background: url(../../../assets/Result_images/u5989.png) no-repeat 5%;
         background-color: rgba(255, 255, 255, 1);
         box-sizing: border-box;
         border: 1px solid rgba(174, 174, 174, 1);
@@ -255,7 +255,7 @@ export default {
         margin-right: 10px;
         width: 124px;
         height: 42px;
-        background: url(../image/u6022.png) no-repeat 5%;
+        background: url(../../../assets/Result_images/u6022.png) no-repeat 5%;
         background-color: rgba(255, 255, 255, 1);
         box-sizing: border-box;
         border-width: 1px;
@@ -268,7 +268,7 @@ export default {
       #btn3 {
         width: 124px;
         height: 42px;
-        background: url(../image/u5948.png) no-repeat 5%;
+        background: url(../../../assets/Result_images/u5948.png) no-repeat 5%;
         background-color: rgba(255, 255, 255, 1);
         box-sizing: border-box;
         border-width: 1px;

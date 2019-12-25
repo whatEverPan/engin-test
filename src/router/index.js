@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
-import modelLaboratory from '../components/modelLaboratory.vue'
-import Result from '../views/test_result.vue'
-import history from '../views/Historical.vue'
-import data from '../views/data.vue'
 
-import testModel from '../components/testModel'
-import testCase from '../components/testCase'
+import modelLaboratory from '@/views/ThreeInOne/modelLaboratory'
+import signIn from '@/views/signIn'
 
-import signIn from '../components/signIn'
+import test_result from '@/views/ThreeInOne/Result/test_result'
+import history from '@/views/ThreeInOne/Result/history'
+import data from '@/views/ThreeInOne/Result/data'
+
+import testModel from '@/views/ThreeInOne/TestModel/testModel'
+import testCase from '@/views/ThreeInOne/TestCase/testCase'
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -24,14 +25,9 @@ const routes = [{
     component: modelLaboratory
   },
   {
-    path: '/case',
-    name: 'case',
+    path: '/testCase',
+    name: 'testCase',
     component: testCase
-  }, {
-
-    path: '/',
-    name: 'home',
-    component: Home
   },
   {
     path: '/about',
@@ -42,9 +38,9 @@ const routes = [{
     component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/result',
-    name: 'result',
-    component: Result
+    path: '/test_result',
+    name: 'test_result',
+    component: test_result
   },
   {
     path: '/history',

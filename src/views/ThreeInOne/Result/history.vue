@@ -223,7 +223,7 @@ export default {
   top: 0px;
   width: 124px;
   height: 42px;
-  background: url(../image/u5989.png) no-repeat 5%;
+  background: url(../../../assets/Result_images/u5989.png) no-repeat 5%;
   background-color: rgba(255, 255, 255, 1);
   box-sizing: border-box;
   border-width: 1px;
@@ -240,7 +240,7 @@ export default {
   top: 0px;
   width: 124px;
   height: 42px;
-  background: url(../image/u6022.png) no-repeat 5%;
+  background: url(../../../assets/Result_images/u6022.png) no-repeat 5%;
   background-color: rgba(255, 255, 255, 1);
   box-sizing: border-box;
   border-width: 1px;
@@ -257,7 +257,7 @@ export default {
   top: 0px;
   width: 124px;
   height: 42px;
-  background: url(../image/u5948.png) no-repeat 5%;
+  background: url(../../../assets/Result_images/u5948.png) no-repeat 5%;
   background-color: rgba(255, 255, 255, 1);
   box-sizing: border-box;
   border-width: 1px;
