@@ -13,13 +13,76 @@
       <!-- 菜单栏menu/button -->
       <div class="menu">
         <a-row type="flex">
-          <a-col :span="12">
+          <a-col :span="6">
             <div class="p">
               <span>场 景 :</span>
             </div>
-            <a-cascader :options="options" @change="onChange"/>
+            <a-dropdown>
+              <a-menu slot="overlay" @click="handleMenuClick">
+                <a-menu-item key="1">
+                  <a-icon type="user"/>1st menu item
+                </a-menu-item>
+                <a-menu-item key="2">
+                  <a-icon type="user"/>2nd menu item
+                </a-menu-item>
+                <a-menu-item key="3">
+                  <a-icon type="user"/>3rd item
+                </a-menu-item>
+              </a-menu>
+              <a-button style="margin-left: 8px">
+                Button
+                <a-icon type="down"/>
+              </a-button>
+            </a-dropdown>
           </a-col>
-          <a-col :span="12">
+
+          <a-col :span="6">
+            <div class="p">
+              <span>场 景 :</span>
+            </div>
+            <a-dropdown>
+              <a-menu slot="overlay" @click="handleMenuClick">
+                <a-menu-item key="1">
+                  <a-icon type="user"/>1st menu item
+                </a-menu-item>
+                <a-menu-item key="2">
+                  <a-icon type="user"/>2nd menu item
+                </a-menu-item>
+                <a-menu-item key="3">
+                  <a-icon type="user"/>3rd item
+                </a-menu-item>
+              </a-menu>
+              <a-button style="margin-left: 8px">
+                Button
+                <a-icon type="down"/>
+              </a-button>
+            </a-dropdown>
+          </a-col>
+
+          <a-col :span="6">
+            <div class="p">
+              <span>场 景 :</span>
+            </div>
+            <a-dropdown>
+              <a-menu slot="overlay" @click="handleMenuClick">
+                <a-menu-item key="1">
+                  <a-icon type="user"/>1st menu item
+                </a-menu-item>
+                <a-menu-item key="2">
+                  <a-icon type="user"/>2nd menu item
+                </a-menu-item>
+                <a-menu-item key="3">
+                  <a-icon type="user"/>3rd item
+                </a-menu-item>
+              </a-menu>
+              <a-button style="margin-left: 8px">
+                Button
+                <a-icon type="down"/>
+              </a-button>
+            </a-dropdown>
+          </a-col>
+
+          <a-col :span="6">
             <a-button type="primary" @click="onclick">
               <span style="width:50px;height:20px;">{{mark?'确定':isEditting?'保存模型':'模型调优'}}</span>
             </a-button>
@@ -27,13 +90,7 @@
         </a-row>
       </div>
       <!-- 文本框 -->
-      <div class="textBox">
-        <div class="text">
-          <div class="text_section">
-            <a-tree :loadData="onLoadData" :treeData="treeData"/>
-          </div>
-        </div>
-      </div>
+      <div class="textBox"></div>
     </div>
   </div>
 </template>
@@ -42,51 +99,14 @@
 export default {
   data() {
     return {
-      treeData: [
-        { title: "Expand to load", key: "0" },
-        { title: "Expand to load", key: "1" },
-        { title: "Tree Node", key: "2", isLeaf: true }
-      ],
-      options: [
-        {
-          value: "zhejiang",
-          label: "Zhejiang",
-          children: [
-            {
-              value: "hangzhou",
-              label: "Hangzhou",
-              children: [
-                {
-                  value: "xihu",
-                  label: "West Lake"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          value: "jiangsu",
-          label: "Jiangsu",
-          disabled: true,
-          children: [
-            {
-              value: "nanjing",
-              label: "Nanjing",
-              children: [
-                {
-                  value: "zhonghuamen",
-                  label: "Zhong Hua Men"
-                }
-              ]
-            }
-          ]
-        }
-      ],
       mark: false,
       isEditting: false
     };
   },
   methods: {
+    handleMenuClick(e) {
+      console.log("click", e);
+    },
     onclick() {
       let vm = this;
       if (vm.mark) {
@@ -96,25 +116,6 @@ export default {
         vm.isEditting = !vm.isEditting;
       }
     },
-    onChange(value) {
-      console.log(value);
-    },
-    onLoadData(treeNode) {
-      return new Promise(resolve => {
-        if (treeNode.dataRef.children) {
-          resolve();
-          return;
-        }
-        setTimeout(() => {
-          treeNode.dataRef.children = [
-            { title: "Child Node", key: `${treeNode.eventKey}-0` },
-            { title: "Child Node", key: `${treeNode.eventKey}-1` }
-          ];
-          this.treeData = [...this.treeData];
-          resolve();
-        }, 1000);
-      });
-    }
   }
 };
 </script>
@@ -161,7 +162,7 @@ export default {
       width: 100%;
       height: 54px;
       line-height: 50px;
-      background-color: #f2f2f2;
+      // background-color: #f2f2f2;
     }
     .textBox {
       overflow: auto;

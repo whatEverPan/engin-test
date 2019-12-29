@@ -5,31 +5,42 @@
       <testModel/>
     </div>
     <!-- 中间按钮 -->
-    <div class="Btn">
-      <div class="btn">
-        <div class="btn_right" style="fontSize:20px" @click="changeRight">
-          <a-icon type="double-right"/>
-        </div>
-        <div class="btnleft" style="fontSize:20px" @click="changeLeft">
-          <a-icon type="double-left"/>
-        </div>
+    <div class="Btn" style="position:relative;">
+      <div
+        class="button"
+        :class="{'active':btnHidden=='Top'}"
+        style="fontSize:20px;position:relative;"
+        @click="changeRight('Top')"
+      >
+        <a-icon type="double-right" style="position:absolute;top:50%;left:25%"/>
+      </div>
+      <div
+        class="button"
+        :class="{'active':btnHidden=='Bottom'}"
+        style="fontSize:20px;position:relative;"
+        @click="changeLeft('Bottom')"
+      >
+        <a-icon type="double-left" style="position:absolute;top:50%;left:25%"/>
       </div>
     </div>
     <!-- 右边板块 -->
     <div class="testright" :class="{'active':boxActive=='right'}">
       <div class="right-box">
-        <div class="testbtn" @click="change('top')">
+        <div class="testbtn" @click="change('top')" style="border-bottom:2px solid #fff">
           <span>测试用例</span>
         </div>
         <div class="right-box_content" :class="{'active':rightActive=='top'}">
-          <testCase/>
+          <div class="content-box">
+            <testCase/>
+          </div>
         </div>
         <div class="testbtn" @click="change('bottom')">
           <span>运行结果</span>
         </div>
         <div class="right-box_content" :class="{'active':rightActive=='bottom'}">
-          <test-result/>
-          <!-- <span>哈哈哈啊哈</span> -->
+          <div class="content-box">
+            <test-result/>
+          </div>
         </div>
       </div>
     </div>
@@ -44,28 +55,23 @@ import testResult from "@/views/ThreeInOne/Result/test_result";
 export default {
   data() {
     return {
-      boxActive: "middle",
-      rightActive: ""
+      boxActive: "",
+      rightActive: "",
+      btnHidden: ""
     };
   },
   methods: {
-    changeRight() {
+    changeRight(bb) {
       this.boxActive = this.boxActive ? "" : "right";
+      this.btnHidden = this.btnHidden ? "" : bb;
     },
-    changeLeft() {
+    changeLeft(cc) {
       this.boxActive = this.boxActive ? "" : "left";
+      this.btnHidden = this.btnHidden ? "" : cc;
     },
     change(arg) {
       this.rightActive = arg;
     }
-
-    // changeActivekey(key) {
-    //   var a = this.activeKey;
-    //   debugger;
-    //   if (a == key) {
-    //     return;
-    //   }
-    // }
   },
 
   components: {
@@ -97,19 +103,18 @@ export default {
   .Btn {
     width: 32px;
     height: 1104px;
-    .btn {
+    display: flex;
+    flex-flow: column;
+    cursor: pointer;
+    background: rgba(236, 236, 236, 1);
+    transition: 0.5s all ease;
+    .button {
       width: 100%;
-      height: 100%;
-      cursor: pointer;
-      text-align: center;
-      background: rgba(236, 236, 236, 1);
-      .btn_right {
-        width: 100%;
-        height: 50%;
-      }
-      .btnleft {
-        width: 100%;
-        height: 50%;
+      overflow: hidden;
+      flex: 1;
+      &.active {
+        height: 0px;
+        flex: none;
       }
     }
   }
@@ -125,7 +130,7 @@ export default {
       flex: none;
     }
     .right-box {
-      height: 960px;
+      height: 1104px;
       width: 100%;
       overflow: auto;
       display: flex;
@@ -149,6 +154,7 @@ export default {
         }
       }
       .right-box_content {
+        // padding: 5px;
         width: 100%;
         height: 0px;
         flex: none;
@@ -157,6 +163,29 @@ export default {
         transition: 0.5s all ease;
         &.active {
           flex: 1;
+        }
+        .content-box {
+          width: 100%;
+          height: 100%;
+          padding: 10px;
+          overflow: auto;
+        }
+        .content-box::-webkit-scrollbar {
+          // 纵向滚动条和横向滚动条宽度
+          width: 6px;
+          height: 6px;
+        }
+        .content-box::-webkit-scrollbar-thumb {
+          // 滚动条按钮条样式
+          border-radius: 4px;
+          background: rgba(195, 195, 195, 1);
+        }
+        .content-box::-webkit-scrollbar-track {
+          // 滚动条背景样式
+          width: 12px;
+          height: 100%;
+          border-radius: 1px;
+          background: #fff;
         }
       }
     }
