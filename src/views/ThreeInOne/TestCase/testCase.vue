@@ -1,10 +1,5 @@
 <template>
   <div class="box">
-    <div class="header">
-      <div class="ziti">
-        <p>测试用例准备</p>
-      </div>
-    </div>
     <!-- 内容 -->
     <div class="content">
       <!-- 前三个按钮 -->
@@ -20,7 +15,6 @@
           okText="计算"
           cancelText="取消"
           width="35%"
-          style="max-width:480px;max-height:302px;min-width:480px"
         >
           <div style="height:180px;">
             <a-button type="primary" style="top:58px;right:10px;position:absolute">EXCEL模板下载</a-button>
@@ -45,7 +39,6 @@
             <a-icon type="dashboard" />指标运算值测算
           </a-button>
         </span>
-
         <!-- 第二个对话框 -->
         <a-modal
           v-model="vivw"
@@ -55,7 +48,7 @@
           width="800px"
           style="max-width:800px;min-width:800px;overflow: hidden;"
         >
-          <div style="height:680px;max-width:800px;min-width:800px;overflow: hidden;">
+          <div style="max-width:800px;min-width:800px;overflow: hidden;">
             <!-- 第一行 -->
             <div>
               <span>场景：</span>
@@ -74,7 +67,7 @@
             <div style="margin-top:20px;">
               <span>客户名称：</span>
               <a-input style="width:180px;" />
-              <span style="margin-left:55px;">执行状态：</span>
+              <span style="margin-left:23px;">执行状态：</span>
               <select style="width:20%;height:30px;border-radius: 5px;">
                 <option value="volvo">请选择：</option>
                 <option value="saab">Saab</option>
@@ -95,18 +88,15 @@
               <a-table
                 :columns="Tow"
                 :dataSource="dataTow"
-                bordered
                 :pagination="page"
                 style="padding-right:40px;width:100%"
                 size="small"
               >
-                <template slot="operation">
+                <template slot="operation" slot-scope="text, record, index">
                   <div class="editable-row-operations">
-                    <!-- @click="edit()" -->
-                    <a>添加</a>
+                    <a @click="error(record,index,'name')">添加</a>
                   </div>
                 </template>
-
                 <template slot="title">模型数据流水号</template>
               </a-table>
             </div>
@@ -116,13 +106,12 @@
               :dataSource="dataOne"
               :pagination="false"
               :scroll="{ y: 240 }"
-              bordered
               style="padding-right:40px;width:100%"
               size="small"
             >
-              <template slot="operation" slot-scope:record>
+              <template slot="operation" slot-scope="text, record, index">
                 <div class="editable-row-operations">
-                  <a @click="() => edit(dataOne.key)">删除</a>
+                  <a @click="delet(index)">删除</a>
                 </div>
               </template>
               <template slot="title">已添加的模型数据表</template>
@@ -141,14 +130,11 @@
             <a-table
               :columns="columns"
               :dataSource="data"
-              bordered
               :pagination="page"
-              style="padding:10px"
-              size="small"
-              class="qieOne"
+              size="middle"
+              style="margin:2px;text-align:center"
             ></a-table>
           </a-tab-pane>
-
           <a-tab-pane tab="指标运算值测算" key="2" forceRender>
             <!-- 第二表格 -->
             <a-empty />
@@ -158,7 +144,6 @@
     </div>
   </div>
 </template>
-
 <script>
 const edit = [
   {
@@ -168,7 +153,7 @@ const edit = [
   },
   {
     title: "时间",
-    dataIndex: "timeOne",
+    dataIndex: "time",
     width: 200
   },
   {
@@ -187,7 +172,7 @@ for (let i = 0; i < 20; i++) {
   dataOne.push({
     key: i,
     name: `张三`,
-    timeOne: `2019-12-2`,
+    time: `2019-12-2`,
     address: `9856971562368. ${i}`
   });
 }
@@ -286,12 +271,6 @@ const data = [
     name: "重庆金字塔装饰有限公司",
     money: "91500106203083432X",
     address: "张海文"
-  },
-  {
-    key: "7",
-    name: "重庆金字塔装饰有限公司",
-    money: "91500106203083432X",
-    address: "张海文"
   }
 ];
 export default {
@@ -314,10 +293,24 @@ export default {
     };
   },
   methods: {
-    edit(key) {
-      var x= this.dataOne[2];
-      console.log(x);
-      // this.dataOne.splice(0,1);
+    delet(index) {
+      this.dataOne.splice(index, 1);
+    },
+    error(record, index, filter) {
+      let exist = this.dataOne.find((item, index) => {
+        return item[filter] == record[filter];
+      });
+
+      if (exist) {
+        this.$error({
+          title: "提示",
+          content: "在已添加的表里存在存在该数据！！！"
+        });
+      } else {
+        let list = { ...record };
+        list.key = this.dataOne.length;
+        this.dataOne.push(list);
+      }
     },
     clear() {
       this.data = null;
@@ -347,63 +340,41 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-/* 弹窗样式 */
-.gongYin {
-  padding: 0 8px;
-  height: 25px;
-  background: gray;
-  display: inline-block;
-  text-align: center;
-  color: white;
-  border-radius: 10px;
-}
-/* 内容样式 */
-.zhibiao {
-  margin-top: 10px;
-  margin-left: 50px;
-}
-.content_one {
-  text-align: left;
-  height: 55px;
-  padding: 10px;
-  background-color: rgba(242, 242, 242, 1);
-}
-.content {
-  width: 100%;
-  height: 490px;
-  background-color: rgba(255, 255, 255, 1);
-  border: 1px solid rgba(204, 204, 204, 1);
-}
-/* 测试用例准备样式 */
-.ziti p {
-  color: #333333;
-  padding: 10px;
-}
-.ziti {
-  border-radius: 6px;
-  text-align: center;
-  width: 180px;
-  height: 54px;
-  background-color: rgba(215, 215, 215, 1);
-}
-.header {
-  width: 100%;
-  height: 53px;
-  border-top: 1px solid rgba(204, 204, 204, 1);
-  border-right: 1px solid rgba(204, 204, 204, 1);
-  border-left: 1px solid rgba(204, 204, 204, 1);
-  background-color: rgba(242, 242, 242, 1);
-}
+<style lang="less" scoped>
 /* 外面盒子样式 */
 .box {
   overflow: hidden;
-  max-width: 926px;
-  min-width: 926px;
   width: 100%;
-  max-height: 600px;
-  height: 550px;
-  margin: 20px auto;
+  height: 100%;
+  min-width: 500px;
+  .content {
+    width: 100%;
+    height: calc(100% - 54px);
+    background-color: rgba(255, 255, 255, 1);
+    .content_one {
+      text-align: left;
+      height: 54px;
+      padding: 10px;
+      border-bottom: 1px #e8e8e8 solid;
+    }
+    .switch {
+      width: 100%;
+    }
+  }
+  /* 弹窗样式 */
+  .gongYin {
+    padding: 0 8px;
+    height: 25px;
+    background: gray;
+    display: inline-block;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+  }
+  /* 内容样式 */
+  .zhibiao {
+    margin-top: 10px;
+    margin-left: 50px;
+  }
 }
 </style>

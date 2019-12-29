@@ -4,15 +4,13 @@
     <div class="header">
       <a-row type="flex" justify="start">
         <a-col :span="24">
-          <div class="p">
-            <span>测试模型</span>
-          </div>
+          <span>测试模型</span>
         </a-col>
       </a-row>
     </div>
     <!-- 内容板块 -->
     <div class="content">
-      <!-- 菜单栏menu -->
+      <!-- 菜单栏menu/button -->
       <div class="menu">
         <a-row type="flex">
           <a-col :span="12">
@@ -22,43 +20,17 @@
             <a-cascader :options="options" @change="onChange"/>
           </a-col>
           <a-col :span="12">
-            <a-button type="primary">
-              <span style="width:50px;height:20px;">确定</span>
+            <a-button type="primary" @click="onclick">
+              <span style="width:50px;height:20px;">{{mark?'确定':isEditting?'保存模型':'模型调优'}}</span>
             </a-button>
           </a-col>
         </a-row>
       </div>
-
       <!-- 文本框 -->
       <div class="textBox">
         <div class="text">
           <div class="text_section">
-            <a-collapse @change="changeActivekey">
-              <a-collapse-panel header="This is panel header 1" key="1">
-                <a-collapse defaultActiveKey="4">
-                  <a-collapse-panel header="This is panel nest panel" key="4">
-                    <p>{{text}}</p>
-                  </a-collapse-panel>
-                </a-collapse>
-
-                <a-collapse defaultActiveKey="4">
-                  <a-collapse-panel header="This is panel nest panel" key="4">
-                    <p>{{text}}</p>
-                  </a-collapse-panel>
-                </a-collapse>
-                <a-collapse defaultActiveKey="4">
-                  <a-collapse-panel header="This is panel nest panel" key="4">
-                    <p>{{text}}</p>
-                  </a-collapse-panel>
-                </a-collapse>
-              </a-collapse-panel>
-              <a-collapse-panel header="This is panel header 2" key="2" :disabled="false">
-                <p>{{text}}</p>
-              </a-collapse-panel>
-              <a-collapse-panel header="This is panel header 3" key="3">
-                <p>{{text}}</p>
-              </a-collapse-panel>
-            </a-collapse>
+            <a-tree :loadData="onLoadData" :treeData="treeData"/>
           </div>
         </div>
       </div>
@@ -70,7 +42,11 @@
 export default {
   data() {
     return {
-      text: `A dog is a type of domesticated animal.Known for its loyalty.`,
+      treeData: [
+        { title: "Expand to load", key: "0" },
+        { title: "Expand to load", key: "1" },
+        { title: "Tree Node", key: "2", isLeaf: true }
+      ],
       options: [
         {
           value: "zhejiang",
@@ -105,62 +81,91 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      mark: false,
+      isEditting: false
     };
   },
   methods: {
-    changeActivekey(key) {
-      console.log(key);
+    onclick() {
+      let vm = this;
+      if (vm.mark) {
+      } else if (vm.isEditting) {
+        vm.isEditting = !vm.isEditting;
+      } else {
+        vm.isEditting = !vm.isEditting;
+      }
     },
     onChange(value) {
       console.log(value);
+    },
+    onLoadData(treeNode) {
+      return new Promise(resolve => {
+        if (treeNode.dataRef.children) {
+          resolve();
+          return;
+        }
+        setTimeout(() => {
+          treeNode.dataRef.children = [
+            { title: "Child Node", key: `${treeNode.eventKey}-0` },
+            { title: "Child Node", key: `${treeNode.eventKey}-1` }
+          ];
+          this.treeData = [...this.treeData];
+          resolve();
+        }, 1000);
+      });
     }
   }
 };
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
 /* 全局 */
 .testModel {
-  width: 960px;
-  height: 536px;
-  margin: 50px auto;
-  border: 2px solid #ccc;
+  // padding: 33px 16px 131px 33px;
+  width: 100%;
+  height: 100%;
+  // border: 1px solid #ccc;
   .p {
     display: inline-block;
-    line-height: 55px;
+    line-height: 54px;
     margin: 0 16px;
   }
   /* 表头 */
   .header {
-    width: 956px;
-    height: 54px;
-    border-bottom: 1px solid #ccc;
-    background-color: #f2f2f2;
-    p {
+    width: 100%;
+    height: 72px;
+    // border: 1px solid #ccc;
+    background: rgba(230, 247, 255, 1);
+    border-radius: 5px 5px 0px 0px;
+    // border-bottom: 1px solid #ccc;
+    // border-top: 1px solid #ccc;
+
+    span {
+      margin-left: 24px;
+      margin-top: 20px;
+      margin-right: 18px;
       display: inline-block;
-      width: 180px;
-      height: 53px;
-      line-height: 53px;
-      background-color: #d7d7d7;
-      span {
-        margin-left: 20px;
-      }
+      font-size: 20px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.85);
+      line-height: 29px;
     }
   }
-
   .content {
-    width: 956px;
-    height: calc(100% - 54px);
+    overflow: auto;
+    width: 100%;
+    height: calc(100% - 72px);
     .menu {
       width: 100%;
-      height: 55px;
+      height: 54px;
       line-height: 50px;
       background-color: #f2f2f2;
     }
     .textBox {
       overflow: auto;
-      height: calc(100% - 56px);
+      height: calc(100%-54px);
       .text {
         width: 100%;
         .text_section {
@@ -170,8 +175,5 @@ export default {
     }
   }
 }
-
-
-
 </style>
 
