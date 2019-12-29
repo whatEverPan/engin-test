@@ -1,65 +1,64 @@
 <template>
-  <div class="simulationResults">
-    <div class="title">
-      <span>测试结果</span>
-    </div>
-    <div class="content">
-      <div class="btn">
-        <input id="btn1" src="#" type="button" value="切换至图表页">
-        <input id="btn2" src="#" type="button" value="导出结果列表">
-        <router-link to="../history">
-          <input id="btn3" type="button" value="查看历史记录">
-        </router-link>
-      </div>
+  <div :is="currentView">
+    <div class="simulationResults">
+      <div class="content">
+        <div class="btn">
+          <input id="btn1" src="#" type="button" value="切换至图表页">
+          <input id="btn2" src="#" type="button" value="导出结果列表">
+          <!-- <router-link to="../history"> -->
+          <input id="btn3" type="button" value="查看历史记录" @click="menuChange('history')">
+          <!-- </router-link> -->
+        </div>
 
-      <div class="textBox">
-        <div class="span">
-          <span>场景：供应链金融（GYLJR）</span>
-          <span>产品：融E贷（GYLJR-RED）</span>
-          <span>模型：助链贷模型（GYLJR-RED-ZLD）</span>
-          <span>模拟运行结束时间：2019-08-08 12:33:14</span>
-        </div>
-        <div class="np">
-          <span>测试对象：</span>
-          <input id="te_ip" type="text">
-          <a-button type="primary">查询</a-button>
-        </div>
-        <!-- 列表 -->
-        <div class="list">
-          <a-table :columns="columns" :dataSource="data" bordered>
-            <template
-              v-for="col in ['name', 'age', 'address']"
-              :slot="col"
-              slot-scope="text, record, index"
-            >
-              <div :key="col">
-                <a-input
-                  v-if="record.editable"
-                  style="margin: -5px 0"
-                  :value="text"
-                  @change="e => handleChange(e.target.value, record.key, col)"
-                />
-                <template v-else>{{text}}</template>
-              </div>
-            </template>
-            <template slot="operation" slot-scope="text, record, index">
-              <div class="editable-row-operations">
-                <span v-if="record.editable">
-                  <a @click="() => save(record.key)">Save</a>
-                  <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.key)">
-                    <a>Cancel</a>
-                  </a-popconfirm>
-                </span>
-                <span v-else>
-                  <a @click="() => edit(record.key)">查看详细报告</a>
-                  <router-link to="../data">
-                    <a @click="() => edit(record.key)">运行数据</a>
-                  </router-link>
-                  <a @click="() => edit(record.key)">下载报告</a>
-                </span>
-              </div>
-            </template>
-          </a-table>
+        <div class="textBox">
+          <div class="span">
+            <span>场景：供应链金融（GYLJR）</span>
+            <span>产品：融E贷（GYLJR-RED）</span>
+            <span>模型：助链贷模型（GYLJR-RED-ZLD）</span>
+            <span>模拟运行结束时间：2019-08-08 12:33:14</span>
+          </div>
+          <div class="np">
+            <span>测试对象：</span>
+            <input id="te_ip" type="text">
+            <a-button type="primary">查询</a-button>
+          </div>
+          <!-- 列表 -->
+          <div class="list">
+            <a-table :columns="columns" :dataSource="data" bordered>
+              <template
+                v-for="col in ['name', 'age', 'address']"
+                :slot="col"
+                slot-scope="text, record, index"
+              >
+                <div :key="col">
+                  <a-input
+                    v-if="record.editable"
+                    style="margin: -5px 0"
+                    :value="text"
+                    @change="e => handleChange(e.target.value, record.key, col)"
+                  />
+                  <template v-else>{{text}}</template>
+                </div>
+              </template>
+              <template slot="operation" slot-scope="text, record, index">
+                <div class="editable-row-operations">
+                  <span v-if="record.editable">
+                    <a @click="() => save(record.key)">Save</a>
+                    <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.key)">
+                      <a>Cancel</a>
+                    </a-popconfirm>
+                  </span>
+                  <span v-else>
+                    <a @click="() => edit(record.key)">查看详细报告</a>
+                    <!-- <router-link to="../data"> -->
+                      <a @click="menuChange('information')">运行数据</a>
+                    <!-- </router-link> -->
+                    <a @click="() => edit(record.key)">下载报告</a>
+                  </span>
+                </div>
+              </template>
+            </a-table>
+          </div>
         </div>
       </div>
     </div>
@@ -67,17 +66,20 @@
 </template>
 
 <script>
+import test_result from '@/views/ThreeInOne/Result/test_result';
+import history from "@/views/ThreeInOne/Result/history";
+import information from '@/views/ThreeInOne/Result/information';
 const columns = [
   {
     title: "序号",
     dataIndex: "name",
-    width: "4%",
+    width: "5%",
     scopedSlots: { customRender: "name" }
   },
   {
     title: "数据来源",
     dataIndex: "source",
-    width: "7%",
+    width: "8%",
     scopedSlots: { customRender: "source" }
   },
   {
@@ -89,43 +91,43 @@ const columns = [
   {
     title: "测试对象代码",
     dataIndex: "object_code",
-    width: "9%",
+    width: "10%",
     scopedSlots: { customRender: "object_code" }
   },
   {
     title: "准入结果",
     dataIndex: "admittance_result",
-    width: "4%",
+    width: "5%",
     scopedSlots: { customRender: "admittance_result" }
   },
   {
     title: "评分结果",
     dataIndex: "score_result",
-    width: "4%",
+    width: "5%",
     scopedSlots: { customRender: "score_result" }
   },
   {
     title: "评分等级",
     dataIndex: "score_grade",
-    width: "4%",
+    width: "5%",
     scopedSlots: { customRender: "score_grade" }
   },
   {
     title: "最终结果",
     dataIndex: "result",
-    width: "4%",
+    width: "5%",
     scopedSlots: { customRender: "result" }
   },
   {
     title: "额度",
     dataIndex: "quota",
-    width: "4%",
+    width: "5%",
     scopedSlots: { customRender: "quota" }
   },
   {
     title: "利率(%)",
     dataIndex: "interest_rate",
-    width: "4%",
+    width: "5%",
     scopedSlots: { customRender: "interest_rate" }
   },
   {
@@ -137,7 +139,7 @@ const columns = [
   {
     title: "操作",
     dataIndex: "operation",
-    width: "12%",
+    width: "20%",
     scopedSlots: { customRender: "operation" }
   }
 ];
@@ -160,14 +162,30 @@ for (let i = 0; i < 100; i++) {
   });
 }
 export default {
+<<<<<<< HEAD:src/views/test_result.vue
   data () {
+=======
+  name:'Result',
+  components: {
+    history,
+    test_result,
+    information
+  },
+  data() {
+>>>>>>> 4f800d024d8083e5301788b2cefa83b761f186a9:src/views/ThreeInOne/Result/test_result.vue
     this.cacheData = data.map(item => ({ ...item }));
     return {
       data,
-      columns
+      columns,
+      currentView: "test_result"
     };
   },
   methods: {
+    menuChange(menu) {
+      this.currentView = menu;
+      console.log(this.currentView);
+    },
+
     handleChange(value, key, column) {
       const newData = [...this.data];
       const target = newData.filter(item => key === item.key)[0];
@@ -212,25 +230,14 @@ export default {
 .simulationResults {
   width: 100%;
   height: 100%;
-  padding: 0 16px 16px;
-  .title {
-    width: 100%;
-    height: 54px;
-    border: 1px solid #ccc;
-    background-color: #f2f2f2;
-    span {
-      background-color: rgba(215, 215, 215, 1);
-      line-height: 52px;
-      text-align: center;
-      display: inline-block;
-      width: 180px;
-      color: black;
-    }
-  }
+  min-height: 1008px;
+
   .content {
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     border-left: 1px solid #ccc;
+    height: 100%;
+    // overflow:auto;
     .btn {
       // padding: ;
       width: 100%;
@@ -241,7 +248,7 @@ export default {
       #btn1 {
         width: 124px;
         height: 42px;
-        background: url(../image/u5989.png) no-repeat 5%;
+        background: url(../../../assets/Result_images/u5989.png) no-repeat 5%;
         background-color: rgba(255, 255, 255, 1);
         box-sizing: border-box;
         border: 1px solid rgba(174, 174, 174, 1);
@@ -254,7 +261,7 @@ export default {
         margin-right: 10px;
         width: 124px;
         height: 42px;
-        background: url(../image/u6022.png) no-repeat 5%;
+        background: url(../../../assets/Result_images/u6022.png) no-repeat 5%;
         background-color: rgba(255, 255, 255, 1);
         box-sizing: border-box;
         border-width: 1px;
@@ -267,7 +274,7 @@ export default {
       #btn3 {
         width: 124px;
         height: 42px;
-        background: url(../image/u5948.png) no-repeat 5%;
+        background: url(../../../assets/Result_images/u5948.png) no-repeat 5%;
         background-color: rgba(255, 255, 255, 1);
         box-sizing: border-box;
         border-width: 1px;
