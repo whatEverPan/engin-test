@@ -5,14 +5,13 @@
     <div class="wrapper_flex">
       <!-- 登录框 -->
       <div class="frame">
-        <p class="frame_Icon">
+        <div class="frame_Icon">
           <img src="../assets/Result_images/Group.png">
-        </p>
-        <p class="frame_p">
-          <!-- <span>数宜信</span> -->
+        </div>
+        <div class="frame_p">
           <img src="../assets/Result_images/数宜信.png">
-        </p>
-        <p class="frame_n">供应链金融一站式服务</p>
+        </div>
+        <div class="frame_n">供应链金融一站式服务</div>
         <div class="components-input-demo-presuffix-user">
           <a-input placeholder="手机号" class="username" v-model="userName" ref="userNameInput">
             <a-icon slot="prefix" type="user"/>
@@ -34,16 +33,16 @@
             </a-tooltip>
           </a-input-password>
         </div>
-        <div class="check" style="text-align:left;margin-left:55px;">
-          <input type="checkbox" name="checkInput">
-          <span>记住密码</span>
+        <div class="check">
+          <input
+            type="checkbox"
+            name="checkInput"
+            style="width:14px;height:14px;vertical-align:middle;cursor: pointer;"
+          >
+          <span style="font-size: 14px;color: #000000 45%;">&nbsp;&nbsp;记住密码</span>
         </div>
-        <!-- <input type="button" name="butt" value="登录" style="background-color:#FF9500;width:319px;height:40px;border:0;color:#FFFFFF;"/> -->
-        <div>
-          <div class="log">
-            <button class="login" type="button">登录</button>
-          </div>
-        </div>
+
+        <button class="login" type="button">登 录</button>
       </div>
       <!-- footer -->
       <div class="footer">
@@ -73,10 +72,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-p {
-  margin: 0;
-  padding: 0;
-}
 .wrapper {
   width: 1920px;
   height: 1080px;
@@ -85,17 +80,18 @@ p {
     height: 100%;
     position: relative;
     .frame {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-top: -234px;
-      margin-left: -215px;
       width: 429px;
       height: 467px;
       background: rgba(255, 255, 255, 1);
       border-radius: 20px;
       text-align: center;
       box-shadow: 1px 5px 5px #888888;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
       .frame_Icon img {
         margin-top: 32px;
       }
@@ -103,6 +99,7 @@ p {
         margin-top: 25px;
       }
       .frame_n {
+        color: #333 100%;
         font-size: 18px;
         margin-top: 16px;
       }
@@ -116,36 +113,38 @@ p {
         height: 40px;
         margin-top: 37px;
       }
-      .check input,
-      span {
-        margin-top: 8px;
-        font-size: 14px;
+      .check {
+        height: 30px;
+        line-height: 30px;
+        margin-left: 55px;
+        text-align: left;
       }
+
       .login {
+        color: #fff;
+        margin-bottom: 40px;
         width: 319px;
         height: 40px;
         background-color: #ff9500;
-        color: #ffffff;
-        margin-top: 13px;
+        font-size: 16px;
         border: 0px;
         border-radius: 5px;
-      }
-      .log :hover {
-        background-color: #ffa500;
       }
     }
   }
   .footer {
-    background-color: #ccc;
-    width: 480px;
-    height: 80px;
+    width: 100%;
+    height: 97px;
     position: absolute;
-    left: 50%;
-    margin-left: -240px;
-    white-space: nowrap;
+    margin: auto;
+    bottom: 0;
     p {
+      margin: 0;
+      padding: 0;
       font-size: 16px;
       text-align: center;
+      color: #000 65%;
+      margin-bottom: 10px;
     }
   }
 }
