@@ -7,7 +7,7 @@ import signIn from '@/views/signIn'
 
 import test_result from '@/views/ThreeInOne/Result/test_result'
 import history from '@/views/ThreeInOne/Result/history'
-import data from '@/views/ThreeInOne/Result/data'
+import information from '@/views/ThreeInOne/Result/information'
 
 import testModel from '@/views/ThreeInOne/TestModel/testModel'
 import testCase from '@/views/ThreeInOne/TestCase/testCase'
@@ -48,9 +48,9 @@ const routes = [{
     component: history
   },
   {
-    path: '/data',
-    name: 'data',
-    component: data
+    path: '/information',
+    name: 'information',
+    component: information
   },
   {
     path: '/testModel',

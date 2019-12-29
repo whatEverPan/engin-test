@@ -1,10 +1,10 @@
 <template>
   <div class="box">
-    <div class="header">
+    <!-- <div class="header">
       <div class="ziti">
-        <span>测试用例准备</span>
+        <span>测试用例</span>
       </div>
-    </div>
+    </div> -->
     <!-- 内容 -->
     <div class="content">
       <!-- 前三个按钮 -->
@@ -345,39 +345,19 @@ export default {
 <style lang="less" scoped>
 /* 外面盒子样式 */
 .box {
-  padding: 16px 16px 16px 8px;
+  // margin: 33px 34px 131px 16px;
   overflow: hidden;
   width: 100%;
-  height: 528px;
-  .header {
-    width: 100%;
-    height: 54px;
-    border: 1px solid #ccc;
-    // border-top: 1px solid rgba(204, 204, 204, 1);
-    // border-right: 1px solid rgba(204, 204, 204, 1);
-    // border-left: 1px solid rgba(204, 204, 204, 1);
-    background-color: rgba(242, 242, 242, 1);
-    .ziti {
-      text-align: center;
-      line-height: 54px;
-      width: 180px;
-      height: 52px;
-      background-color: rgba(215, 215, 215, 1);
-      /* 测试用例准备样式 */
-      span {
-        color: #333333;
-      }
-    }
-  }
+  height: 100%;
   .content {
     width: 100%;
     height: calc(100% - 54px);
     background-color: rgba(255, 255, 255, 1);
     // border: 1px solid rgba(204, 204, 204, 1);
     // border-top: 1px solid rgba(204, 204, 204, 1);
-    border-right: 1px solid rgba(204, 204, 204, 1);
-    border-left: 1px solid rgba(204, 204, 204, 1);
-    border-bottom: 1px solid #ccc;
+    // border-right: 1px solid rgba(204, 204, 204, 1);
+    // border-left: 1px solid rgba(204, 204, 204, 1);
+    // border-bottom: 1px solid #ccc;
     .content_one {
       text-align: left;
       height: 54px;

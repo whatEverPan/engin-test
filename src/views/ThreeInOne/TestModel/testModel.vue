@@ -122,9 +122,9 @@ export default {
 <style lang='less' scoped>
 /* 全局 */
 .testModel {
-  padding: 16px 8px 16px 16px;
+  // padding: 33px 16px 131px 33px;
   width: 100%;
-  height: 528px;
+  height: 100%;
   // border: 1px solid #ccc;
   .p {
     display: inline-block;
@@ -134,35 +134,38 @@ export default {
   /* 表头 */
   .header {
     width: 100%;
-    height: 54px;
-    border: 1px solid #ccc;
+    height: 72px;
+    // border: 1px solid #ccc;
+    background: rgba(230, 247, 255, 1);
+    border-radius: 5px 5px 0px 0px;
     // border-bottom: 1px solid #ccc;
-    background-color: #f2f2f2;
     // border-top: 1px solid #ccc;
+
     span {
-      background-color: rgba(215, 215, 215, 1);
-      line-height: 52px;
-      text-align: center;
+      margin-left: 24px;
+      margin-top: 20px;
+      margin-right: 18px;
       display: inline-block;
-      width: 180px;
-      color: black;
+      font-size: 20px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.85);
+      line-height: 29px;
     }
   }
   .content {
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-left: 1px solid #ccc;
+    overflow: auto;
     width: 100%;
-    height: calc(100% - 54px);
+    height: calc(100% - 72px);
     .menu {
       width: 100%;
-      height: 55px;
+      height: 54px;
       line-height: 50px;
       background-color: #f2f2f2;
     }
     .textBox {
       overflow: auto;
-      height: calc(100% - 56px);
+      height: calc(100%-54px);
       .text {
         width: 100%;
         .text_section {
