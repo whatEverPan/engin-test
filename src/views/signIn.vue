@@ -15,11 +15,11 @@
         <!-- 登录框 -->
         <div class="frame">
           <p class="frame_Icon">
-            <img src="../image/Group.png">
+            <img src="../assets/Result_images/Group.png">
           </p>
           <p class="frame_p">
             <!-- <span>数宜信</span> -->
-            <img src="../image/数宜信.png">
+            <img src="../assets/Result_images/数宜信.png">
           </p>
           <p class="frame_n">供应链金融一站式服务</p>
           <div class="components-input-demo-presuffix-user">

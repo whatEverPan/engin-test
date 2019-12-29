@@ -162,9 +162,6 @@ for (let i = 0; i < 100; i++) {
   });
 }
 export default {
-<<<<<<< HEAD:src/views/test_result.vue
-  data () {
-=======
   name:'Result',
   components: {
     history,
@@ -172,7 +169,6 @@ export default {
     information
   },
   data() {
->>>>>>> 4f800d024d8083e5301788b2cefa83b761f186a9:src/views/ThreeInOne/Result/test_result.vue
     this.cacheData = data.map(item => ({ ...item }));
     return {
       data,
