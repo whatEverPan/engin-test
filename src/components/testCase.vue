@@ -120,13 +120,12 @@
               style="padding-right:40px;width:100%"
               size="small"
             >
-            <template slot="operation">
-                  <div class="editable-row-operations">
-                    <!-- @click="delet()" -->
-                    <a @click="delet">删除</a>
-                  </div>
-                </template>
-            <template slot="title">已添加的模型数据表</template>
+              <template slot="operation" slot-scope:record>
+                <div class="editable-row-operations">
+                  <a @click="() => edit(dataOne.key)">删除</a>
+                </div>
+              </template>
+              <template slot="title">已添加的模型数据表</template>
             </a-table>
           </div>
         </a-modal>
@@ -141,13 +140,13 @@
             <!-- 第一表格 -->
             <a-table
               :columns="columns"
-              :dataSource="data2"
+              :dataSource="data"
               bordered
               :pagination="page"
               style="padding:10px"
               size="small"
-            >
-            </a-table>
+              class="qieOne"
+            ></a-table>
           </a-tab-pane>
 
           <a-tab-pane tab="指标运算值测算" key="2" forceRender>
@@ -175,7 +174,7 @@ const edit = [
   {
     title: "流水号",
     dataIndex: "address",
-    width:250
+    width: 250
   },
   {
     title: "编辑",
@@ -190,10 +189,8 @@ for (let i = 0; i < 20; i++) {
     name: `张三`,
     timeOne: `2019-12-2`,
     address: `9856971562368. ${i}`
-
   });
 }
-
 const Tow = [
   {
     title: "姓名",
@@ -239,7 +236,6 @@ const dataTow = [
     address: "9856971562368"
   }
 ];
-
 const columns = [
   {
     title: "名称",
@@ -254,7 +250,6 @@ const columns = [
     dataIndex: "address"
   }
 ];
-
 const data = [
   {
     key: "1",
@@ -299,7 +294,6 @@ const data = [
     address: "张海文"
   }
 ];
-
 export default {
   data() {
     return {
@@ -320,10 +314,14 @@ export default {
     };
   },
   methods: {
-    clear(){
-      var switch1=document.getElementsByClassName("switch");
+    edit(key) {
+      var x= this.dataOne[2];
+      console.log(x);
+      // this.dataOne.splice(0,1);
     },
-    delet(){},
+    clear() {
+      this.data = null;
+    },
     showModal() {
       this.visible = true;
     },

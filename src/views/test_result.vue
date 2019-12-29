@@ -13,13 +13,14 @@
         type="button"
         value="导出结果列表"
       >
-      <router-link to="../history">
+      <!-- <router-link to="../history"> -->
       <input
         id="btn3"
         type="button"
         value="查看历史记录"
+        @click="chakan"
       >
-      </router-link>
+      <!-- </router-link> -->
     </div>
     <div style="width:100%;white-space:nowrap;height:40px;margin-top:5px;">
       <span>场景：供应链金融（GYLJR）</span>
@@ -177,6 +178,7 @@ for (let i = 0; i < 100; i++) {
   });
 }
 export default {
+  inject:['reload'],
   data () {
     this.cacheData = data.map(item => ({ ...item }));
     return {
@@ -184,6 +186,17 @@ export default {
       columns,
     };
   },
+  methods:{
+    chakan(){
+      if (this.$route.path === '/history') {
+        // 处于信息页时调用依赖中的方法刷新路由
+          this.reload();
+        } else {
+        // 跳转
+          this.$router.push('/history')
+        }
+    }
+  }
 };
 </script>
 
