@@ -1,16 +1,11 @@
 <template>
   <div class="box">
-    <!-- <div class="header">
-      <div class="ziti">
-        <span>测试用例</span>
-      </div>
-    </div> -->
     <!-- 内容 -->
     <div class="content">
       <!-- 前三个按钮 -->
       <div class="content_one">
         <a-button type="primary" @click="showModal">
-          <a-icon type="folder"/>标准测试值导入
+          <a-icon type="folder" />标准测试值导入
         </a-button>
         <!-- 第一个对话框 -->
         <a-modal
@@ -23,7 +18,7 @@
         >
           <div style="height:180px;">
             <a-button type="primary" style="top:58px;right:10px;position:absolute">EXCEL模板下载</a-button>
-            <br>
+            <br />
             <span>EXCEL上传：</span>
             <a-upload
               name="file"
@@ -33,7 +28,7 @@
               @change="handleChange"
             >
               <a-button>
-                <a-icon type="upload"/>选择文件
+                <a-icon type="upload" />选择文件
               </a-button>
             </a-upload>
           </div>
@@ -41,10 +36,9 @@
         <!-- 第二个按钮 -->
         <span class="zhibiao">
           <a-button type="primary" @click="showTwo">
-            <a-icon type="dashboard"/>指标运算值测算
+            <a-icon type="dashboard" />指标运算值测算
           </a-button>
         </span>
-
         <!-- 第二个对话框 -->
         <a-modal
           v-model="vivw"
@@ -54,7 +48,7 @@
           width="800px"
           style="max-width:800px;min-width:800px;overflow: hidden;"
         >
-          <div style="height:680px;max-width:800px;min-width:800px;overflow: hidden;">
+          <div style="max-width:800px;min-width:800px;overflow: hidden;">
             <!-- 第一行 -->
             <div>
               <span>场景：</span>
@@ -72,8 +66,8 @@
             <!-- 第二行 -->
             <div style="margin-top:20px;">
               <span>客户名称：</span>
-              <a-input style="width:180px;"/>
-              <span style="margin-left:55px;">执行状态：</span>
+              <a-input style="width:180px;" />
+              <span style="margin-left:23px;">执行状态：</span>
               <select style="width:20%;height:30px;border-radius: 5px;">
                 <option value="volvo">请选择：</option>
                 <option value="saab">Saab</option>
@@ -86,26 +80,23 @@
             <!-- 第三行 -->
             <div style="margin-top:20px;">
               <span>模型数据流水日期：</span>
-              <a-date-picker/>—
-              <a-date-picker/>
+              <a-date-picker />—
+              <a-date-picker />
             </div>
             <!-- 表格部分 -->
             <div style="margin-top:10px;max-width:800px;min-width:800px;">
               <a-table
                 :columns="Tow"
                 :dataSource="dataTow"
-                bordered
                 :pagination="page"
                 style="padding-right:40px;width:100%"
                 size="small"
               >
-                <template slot="operation">
+                <template slot="operation" slot-scope="text, record, index">
                   <div class="editable-row-operations">
-                    <!-- @click="edit()" -->
-                    <a>添加</a>
+                    <a @click="error(record,index,'name')">添加</a>
                   </div>
                 </template>
-
                 <template slot="title">模型数据流水号</template>
               </a-table>
             </div>
@@ -115,14 +106,12 @@
               :dataSource="dataOne"
               :pagination="false"
               :scroll="{ y: 240 }"
-              bordered
               style="padding-right:40px;width:100%"
               size="small"
             >
-              <template slot="operation">
+              <template slot="operation" slot-scope="text, record, index">
                 <div class="editable-row-operations">
-                  <!-- @click="delet()" -->
-                  <a @click="delet">删除</a>
+                  <a @click="delet(index)">删除</a>
                 </div>
               </template>
               <template slot="title">已添加的模型数据表</template>
@@ -133,7 +122,6 @@
           <a-button type="danger" @click="clear">清除数据</a-button>
         </span>
       </div>
-
       <!-- 切换 -->
       <div class="switch">
         <a-tabs defaultActiveKey="1">
@@ -142,23 +130,20 @@
             <a-table
               :columns="columns"
               :dataSource="data"
-              bordered
               :pagination="page"
-              size="small"
-              style="margin:2px"
+              size="middle"
+              style="margin:2px;text-align:center"
             ></a-table>
           </a-tab-pane>
-
           <a-tab-pane tab="指标运算值测算" key="2" forceRender>
             <!-- 第二表格 -->
-            <a-empty/>
+            <a-empty />
           </a-tab-pane>
         </a-tabs>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 const edit = [
   {
@@ -168,7 +153,7 @@ const edit = [
   },
   {
     title: "时间",
-    dataIndex: "timeOne",
+    dataIndex: "time",
     width: 200
   },
   {
@@ -187,11 +172,10 @@ for (let i = 0; i < 20; i++) {
   dataOne.push({
     key: i,
     name: `张三`,
-    timeOne: `2019-12-2`,
+    time: `2019-12-2`,
     address: `9856971562368. ${i}`
   });
 }
-
 const Tow = [
   {
     title: "姓名",
@@ -237,7 +221,6 @@ const dataTow = [
     address: "9856971562368"
   }
 ];
-
 const columns = [
   {
     title: "名称",
@@ -252,7 +235,6 @@ const columns = [
     dataIndex: "address"
   }
 ];
-
 const data = [
   {
     key: "1",
@@ -291,7 +273,6 @@ const data = [
     address: "张海文"
   }
 ];
-
 export default {
   data() {
     return {
@@ -312,10 +293,28 @@ export default {
     };
   },
   methods: {
-    clear() {
-      var switch1 = document.getElementsByClassName("switch");
+    delet(index) {
+      this.dataOne.splice(index, 1);
     },
-    delet() {},
+    error(record, index, filter) {
+      let exist = this.dataOne.find((item, index) => {
+        return item[filter] == record[filter];
+      });
+
+      if (exist) {
+        this.$error({
+          title: "提示",
+          content: "在已添加的表里存在存在该数据！！！"
+        });
+      } else {
+        let list = { ...record };
+        list.key = this.dataOne.length;
+        this.dataOne.push(list);
+      }
+    },
+    clear() {
+      this.data = null;
+    },
     showModal() {
       this.visible = true;
     },
@@ -341,32 +340,25 @@ export default {
   }
 };
 </script>
-
 <style lang="less" scoped>
 /* 外面盒子样式 */
 .box {
-  // margin: 33px 34px 131px 16px;
   overflow: hidden;
   width: 100%;
   height: 100%;
+  min-width: 500px;
   .content {
     width: 100%;
     height: calc(100% - 54px);
     background-color: rgba(255, 255, 255, 1);
-    // border: 1px solid rgba(204, 204, 204, 1);
-    // border-top: 1px solid rgba(204, 204, 204, 1);
-    // border-right: 1px solid rgba(204, 204, 204, 1);
-    // border-left: 1px solid rgba(204, 204, 204, 1);
-    // border-bottom: 1px solid #ccc;
     .content_one {
       text-align: left;
       height: 54px;
       padding: 10px;
-      background-color: rgba(242, 242, 242, 1);
+      border-bottom: 1px #e8e8e8 solid;
     }
     .switch {
       width: 100%;
-      // height: 100%;
     }
   }
   /* 弹窗样式 */
