@@ -52,9 +52,9 @@
             <!-- 第一行 -->
             <div>
               <span>场景：</span>
-              <span class="gongYin">供应链金融</span>
+              <span>供应链金融</span>
               <span style="margin-left:20px;">产品：</span>
-              <span class="gongYin">税链贷</span>
+              <span>税链贷</span>
               <span style="margin-left:60px;">模型：</span>
               <select style="width:185px;height:30px;border-radius: 5px;">
                 <option value="volvo">请选择：</option>
@@ -75,7 +75,7 @@
                 <option value="audi">Audi</option>
               </select>
               <a-button type="primary" style="margin-left:20px;">查询</a-button>
-              <a-button type="primary" style="margin-left:20px;width:10%;">重置</a-button>
+              <a-button type="primary" style="margin-left:20px;">重置</a-button>
             </div>
             <!-- 第三行 -->
             <div style="margin-top:20px;">
@@ -361,17 +361,6 @@ export default {
       width: 100%;
     }
   }
-  /* 弹窗样式 */
-  .gongYin {
-    padding: 0 8px;
-    height: 25px;
-    background: gray;
-    display: inline-block;
-    text-align: center;
-    color: white;
-    border-radius: 10px;
-  }
-  /* 内容样式 */
   .zhibiao {
     margin-top: 10px;
     margin-left: 50px;

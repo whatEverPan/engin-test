@@ -17,7 +17,7 @@
             <div class="p">
               <span>场 景 :</span>
             </div>
-            <a-dropdown>
+            <a-dropdown style="width:60%">
               <a-menu slot="overlay" @click="handleMenuClick">
                 <a-menu-item key="1">
                   <a-icon type="user"/>1st menu item
@@ -38,9 +38,9 @@
 
           <a-col :span="6">
             <div class="p">
-              <span>场 景 :</span>
+              <span>产 品 :</span>
             </div>
-            <a-dropdown>
+            <a-dropdown style="width:60%">
               <a-menu slot="overlay" @click="handleMenuClick">
                 <a-menu-item key="1">
                   <a-icon type="user"/>1st menu item
@@ -61,9 +61,9 @@
 
           <a-col :span="6">
             <div class="p">
-              <span>场 景 :</span>
+              <span>模 型 :</span>
             </div>
-            <a-dropdown>
+            <a-dropdown style="width:60%">
               <a-menu slot="overlay" @click="handleMenuClick">
                 <a-menu-item key="1">
                   <a-icon type="user"/>1st menu item
@@ -83,9 +83,11 @@
           </a-col>
 
           <a-col :span="6">
-            <a-button type="primary" @click="onclick">
-              <span style="width:50px;height:20px;">{{mark?'确定':isEditting?'保存模型':'模型调优'}}</span>
-            </a-button>
+            <div style="width:60%;margin-left:16px">
+              <a-button type="primary" @click="onclick" block>
+                <span style="width:50px;height:20px;">{{mark?'确定':isEditting?'保存模型':'模型调优'}}</span>
+              </a-button>
+            </div>
           </a-col>
         </a-row>
       </div>
@@ -115,7 +117,7 @@ export default {
       } else {
         vm.isEditting = !vm.isEditting;
       }
-    },
+    }
   }
 };
 </script>
@@ -123,25 +125,23 @@ export default {
 <style lang='less' scoped>
 /* 全局 */
 .testModel {
-  // padding: 33px 16px 131px 33px;
-  width: 100%;
+  // width: 100%;
   height: 100%;
-  // border: 1px solid #ccc;
+  min-width: 800px;
   .p {
     display: inline-block;
     line-height: 54px;
-    margin: 0 16px;
+    margin-left: 16px;
+    a-dropdown {
+      width: 60%;
+    }
   }
   /* 表头 */
   .header {
     width: 100%;
     height: 72px;
-    // border: 1px solid #ccc;
     background: rgba(230, 247, 255, 1);
     border-radius: 5px 5px 0px 0px;
-    // border-bottom: 1px solid #ccc;
-    // border-top: 1px solid #ccc;
-
     span {
       margin-left: 24px;
       margin-top: 20px;
@@ -162,7 +162,6 @@ export default {
       width: 100%;
       height: 54px;
       line-height: 50px;
-      // background-color: #f2f2f2;
     }
     .textBox {
       overflow: auto;

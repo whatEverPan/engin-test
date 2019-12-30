@@ -51,7 +51,7 @@
                   <span v-else>
                     <a @click="() => edit(record.key)">查看详细报告</a>
                     <!-- <router-link to="../data"> -->
-                      <a @click="menuChange('information')">运行数据</a>
+                    <a @click="menuChange('information')">运行数据</a>
                     <!-- </router-link> -->
                     <a @click="() => edit(record.key)">下载报告</a>
                   </span>
@@ -66,9 +66,9 @@
 </template>
 
 <script>
-import test_result from '@/views/ThreeInOne/Result/test_result';
+import test_result from "@/views/ThreeInOne/Result/test_result";
 import history from "@/views/ThreeInOne/Result/history";
-import information from '@/views/ThreeInOne/Result/information';
+import information from "@/views/ThreeInOne/Result/information";
 const columns = [
   {
     title: "序号",
@@ -162,7 +162,7 @@ for (let i = 0; i < 100; i++) {
   });
 }
 export default {
-  name:'Result',
+  name: "Result",
   components: {
     history,
     test_result,
@@ -224,14 +224,11 @@ export default {
 </script>
 <style lang='less' scoped>
 .simulationResults {
-  width: 100%;
   height: 100%;
-  min-height: 1008px;
-
+  // min-height: 1008px;
+  min-width: 1880px;
+  // max-width: 1920px;
   .content {
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-left: 1px solid #ccc;
     height: 100%;
     // overflow:auto;
     .btn {

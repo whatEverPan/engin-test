@@ -12,7 +12,7 @@
         style="fontSize:20px;position:relative;"
         @click="changeRight('Top')"
       >
-        <a-icon type="double-right" style="position:absolute;top:50%;left:25%"/>
+        <a-icon type="double-right" style="position:absolute;top:50%;left:50%;margin-left:-10px;"/>
       </div>
       <div
         class="button"
@@ -20,7 +20,7 @@
         style="fontSize:20px;position:relative;"
         @click="changeLeft('Bottom')"
       >
-        <a-icon type="double-left" style="position:absolute;top:50%;left:25%"/>
+        <a-icon type="double-left" style="position:absolute;top:50%;left:50%;margin-left:-10px;"/>
       </div>
     </div>
     <!-- 右边板块 -->
@@ -84,8 +84,11 @@ export default {
 
 <style lang="less" scoped>
 .model-test-box {
-  width: 1582px;
-  height: 1268px;
+  padding: 20px 20px 128px;
+  // width: 1582px;
+  // height: 1268px;
+  width: 100%;
+  height: 100%;
   background: rgba(249, 249, 249, 1);
   overflow: hidden;
   display: flex;
@@ -108,6 +111,13 @@ export default {
     cursor: pointer;
     background: rgba(236, 236, 236, 1);
     transition: 0.5s all ease;
+    transition-duration: 5s;
+    :hover {
+      // border: 0.5px solid #999;
+      // -webkit-box-shadow: red 0px 10px 10px;
+      // -moz-box-shadow: red 0px 10px 10px;
+      box-shadow: #999 0px 5px 5px;
+    }
     .button {
       width: 100%;
       overflow: hidden;
@@ -141,6 +151,12 @@ export default {
         background: rgba(230, 247, 255, 1);
         border-radius: 5px 5px 0px 0px;
         cursor: pointer;
+        // :hover {
+        //   // border: 0.5px solid #999;
+        //   -webkit-box-shadow: #999 0px 10px 10px;
+        //   -moz-box-shadow: #999 0px 10px 10px;
+        //   box-shadow: #999 0px 10px 10px;
+        // }
         span {
           margin-left: 24px;
           margin-top: 20px;
