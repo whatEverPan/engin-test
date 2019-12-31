@@ -17,69 +17,31 @@
             <div class="p">
               <span>场 景 :</span>
             </div>
-            <a-dropdown style="width:60%">
-              <a-menu slot="overlay" @click="handleMenuClick">
-                <a-menu-item key="1">
-                  <a-icon type="user"/>1st menu item
-                </a-menu-item>
-                <a-menu-item key="2">
-                  <a-icon type="user"/>2nd menu item
-                </a-menu-item>
-                <a-menu-item key="3">
-                  <a-icon type="user"/>3rd item
-                </a-menu-item>
-              </a-menu>
-              <a-button style="margin-left: 8px">
-                Button
-                <a-icon type="down"/>
-              </a-button>
-            </a-dropdown>
+            <select v-model="brand" @change="type=null,name=null,imei=null">
+              <option disabled="disabled" :value="null">请选择</option>
+              <option v-for="(item, index) in product" :value="index">{{item.brand}}</option>
+            </select>
           </a-col>
 
           <a-col :span="6">
             <div class="p">
               <span>产 品 :</span>
             </div>
-            <a-dropdown style="width:60%">
-              <a-menu slot="overlay" @click="handleMenuClick">
-                <a-menu-item key="1">
-                  <a-icon type="user"/>1st menu item
-                </a-menu-item>
-                <a-menu-item key="2">
-                  <a-icon type="user"/>2nd menu item
-                </a-menu-item>
-                <a-menu-item key="3">
-                  <a-icon type="user"/>3rd item
-                </a-menu-item>
-              </a-menu>
-              <a-button style="margin-left: 8px">
-                Button
-                <a-icon type="down"/>
-              </a-button>
-            </a-dropdown>
+
+            <select v-model="type" @change="name=null,imei=null">
+              <option disabled="disabled" :value="null">请选择</option>
+              <option v-for="(item, index) in typeArray" :value="index">{{item.type}}</option>
+            </select>
           </a-col>
 
           <a-col :span="6">
             <div class="p">
               <span>模 型 :</span>
             </div>
-            <a-dropdown style="width:60%">
-              <a-menu slot="overlay" @click="handleMenuClick">
-                <a-menu-item key="1">
-                  <a-icon type="user"/>1st menu item
-                </a-menu-item>
-                <a-menu-item key="2">
-                  <a-icon type="user"/>2nd menu item
-                </a-menu-item>
-                <a-menu-item key="3">
-                  <a-icon type="user"/>3rd item
-                </a-menu-item>
-              </a-menu>
-              <a-button style="margin-left: 8px">
-                Button
-                <a-icon type="down"/>
-              </a-button>
-            </a-dropdown>
+            <select v-model="name" @change="imei=null">
+              <option disabled="disabled" :value="null">请选择</option>
+              <option v-for="(item, index) in nameArray" :value="index">{{item.name}}</option>
+            </select>
           </a-col>
 
           <a-col :span="6">
@@ -101,9 +63,100 @@
 export default {
   data() {
     return {
+      imei: "",
+      brand: null,
+      type: null,
+      name: null,
+      error: null,
+
+      product: [
+        {
+          brand: "Apple",
+          type: [
+            {
+              type: "iPhone",
+              name: [
+                {
+                  name: "iPhone XS"
+                },
+                {
+                  name: "iPhone XS MAX"
+                }
+              ]
+            },
+            {
+              type: "iPad",
+              name: [
+                {
+                  name: "IPad Air 无线局域网机型"
+                },
+                {
+                  name: "Ipad Air 无线局域网 + 蜂窝网络机型"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          brand: "China",
+          type: [
+            {
+              type: "HUAWEI",
+              name: [
+                {
+                  name: "HUAWEI P30"
+                },
+                {
+                  name: "HUAWEI nova4"
+                }
+              ]
+            },
+            {
+              type: "OPPO",
+              name: [
+                {
+                  name: "OPPO Reno3"
+                },
+                {
+                  name: "OPPO Reno3 Pro"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+
       mark: false,
       isEditting: false
     };
+  },
+  computed: {
+    //获得品类信息
+    typeArray: function() {
+      return this.brand !== null ? this.product[this.brand].type : null;
+    },
+    //获得所选取产品名称信息
+    nameArray: function() {
+      return this.type !== null && this.typeArray.length
+        ? this.typeArray[this.type].name
+        : null;
+    },
+    //提交前的完整性验证
+    check: function() {
+      this.error = null;
+      switch (true) {
+        case this.brand === null:
+          this.error = "品牌";
+          break;
+        case this.type === null:
+          this.error = "产品类型";
+          break;
+        case this.name === null:
+          this.error = "产品名称";
+          break;
+      }
+      return this.error;
+    }
   },
   methods: {
     handleMenuClick(e) {
@@ -128,14 +181,6 @@ export default {
   // width: 100%;
   height: 100%;
   min-width: 800px;
-  .p {
-    display: inline-block;
-    line-height: 54px;
-    margin-left: 16px;
-    a-dropdown {
-      width: 60%;
-    }
-  }
   /* 表头 */
   .header {
     width: 100%;
@@ -162,6 +207,28 @@ export default {
       width: 100%;
       height: 54px;
       line-height: 50px;
+      .p {
+        display: inline-block;
+        line-height: 54px;
+        margin-left: 16px;
+        margin-right: 16px;
+      }
+    }
+    select {
+      padding-left: 5px;
+      width: 60%;
+      min-width: 126px;
+      height: 32px;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      white-space: nowrap;
+      font-weight: 400;
+      color: #000 25%;
+      font-size: 14px;
+      // :hover{
+      //   border: 2px solid red;
+      // }
     }
     .textBox {
       overflow: auto;
